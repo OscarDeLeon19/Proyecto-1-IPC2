@@ -53,7 +53,7 @@ public class Trabajador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Boton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton1ActionPerformed
-        CargarArchivo cargararchivo = new CargarArchivo();
+        CargarArchivo cargararchivo = new CargarArchivo(conexion);
         cargararchivo.Ejecutar();
         
         

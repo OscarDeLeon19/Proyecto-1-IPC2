@@ -64,10 +64,16 @@ public class Principal extends javax.swing.JFrame {
 
         jTextField4.setText("URL");
 
+        Texto1.setText("jdbc:mysql://localhost:3306/Proyecto1");
+
         jTextField6.setEditable(false);
         jTextField6.setText("Usuario");
 
+        Texto2.setText("root");
+
         jTextField8.setText("Contraseña");
+
+        Texto3.setText("mariobros99");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

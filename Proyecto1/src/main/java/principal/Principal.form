@@ -144,6 +144,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="Texto1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jdbc:mysql://localhost:3306/Proyecto1"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField6">
       <Properties>
@@ -152,6 +155,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="Texto2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="root"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField8">
       <Properties>
@@ -159,6 +165,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="Texto3">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="mariobros99"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
