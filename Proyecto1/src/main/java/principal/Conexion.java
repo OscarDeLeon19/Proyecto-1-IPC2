@@ -38,4 +38,18 @@ public class Conexion {
         }
         return con;
     }
+    
+    public static Connection getConnection2() {
+
+        Connection con = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            con = (Connection) DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            Conexion_Exitosa = true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            Conexion_Exitosa = false;
+        }
+        return con;
+    }
 }

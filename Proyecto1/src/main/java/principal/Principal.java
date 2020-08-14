@@ -9,6 +9,7 @@ public class Principal extends javax.swing.JFrame {
     public static String USERNAME; 
     public static String PASSWORD;
     private Connection conexion;
+    private Conexion ClaseConexion;
 
     public Principal() {
         initComponents();
@@ -146,7 +147,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void BotonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIniciarActionPerformed
-        Trabajador trabajador = new Trabajador(conexion);
+        Trabajador trabajador = new Trabajador(ClaseConexion);
         trabajador.Ejecutar();
     }//GEN-LAST:event_BotonIniciarActionPerformed
 
@@ -156,7 +157,7 @@ public class Principal extends javax.swing.JFrame {
         USERNAME = Texto2.getText();
         PASSWORD = Texto3.getText();
 
-        Conexion ClaseConexion = new Conexion(URL, USERNAME, PASSWORD);
+        ClaseConexion = new Conexion(URL, USERNAME, PASSWORD);
         conexion = ClaseConexion.getConnection();
         
         if (ClaseConexion.isConexion_Exitosa() == true){
