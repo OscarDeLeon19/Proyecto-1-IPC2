@@ -27,6 +27,7 @@ public class Trabajador extends javax.swing.JFrame {
 
         Boton1 = new javax.swing.JButton();
         BotonComprobar = new javax.swing.JButton();
+        BotonIniciar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Principal");
@@ -46,15 +47,24 @@ public class Trabajador extends javax.swing.JFrame {
             }
         });
 
+        BotonIniciar.setText("Iniciar ");
+        BotonIniciar.setEnabled(false);
+        BotonIniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonIniciarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BotonComprobar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Boton1, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(BotonIniciar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BotonComprobar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Boton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -64,7 +74,9 @@ public class Trabajador extends javax.swing.JFrame {
                 .addComponent(BotonComprobar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Boton1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(BotonIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         pack();
@@ -89,6 +101,7 @@ public class Trabajador extends javax.swing.JFrame {
 
             if (res.next()) {
                 JOptionPane.showMessageDialog(null, "Ya hay datos en la base de datos");
+                BotonIniciar.setEnabled(true);
                 Boton1.setEnabled(false);
             } else {
                 Boton1.setEnabled(true);
@@ -101,6 +114,11 @@ public class Trabajador extends javax.swing.JFrame {
         
        
     }//GEN-LAST:event_BotonComprobarActionPerformed
+
+    private void BotonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIniciarActionPerformed
+        ElegirTienda Elegir = new ElegirTienda(ClaseConexion);
+        Elegir.Ejecutar();
+    }//GEN-LAST:event_BotonIniciarActionPerformed
     
 
     public void Ejecutar() {
@@ -117,5 +135,6 @@ public class Trabajador extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Boton1;
     private javax.swing.JButton BotonComprobar;
+    private javax.swing.JButton BotonIniciar;
     // End of variables declaration//GEN-END:variables
 }

@@ -149,6 +149,7 @@ public class Principal extends javax.swing.JFrame {
     private void BotonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIniciarActionPerformed
         Trabajador trabajador = new Trabajador(ClaseConexion);
         trabajador.Ejecutar();
+        dispose();
     }//GEN-LAST:event_BotonIniciarActionPerformed
 
     private void BotonConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonConectarActionPerformed

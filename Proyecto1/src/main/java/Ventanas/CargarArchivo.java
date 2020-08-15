@@ -41,7 +41,7 @@ public class CargarArchivo extends javax.swing.JFrame {
         BotonAbrir = new javax.swing.JButton();
         BotonCargar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         Area1.setColumns(20);
         Area1.setForeground(new java.awt.Color(17, 9, 9));
