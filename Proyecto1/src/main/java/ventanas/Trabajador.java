@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Ventanas;
+package ventanas;
 
 import com.mysql.jdbc.Connection;
 import java.sql.PreparedStatement;
@@ -33,7 +33,6 @@ public class Trabajador extends javax.swing.JFrame {
         setTitle("Principal");
 
         Boton1.setText("Cargar Archivos");
-        Boton1.setEnabled(false);
         Boton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Boton1ActionPerformed(evt);
@@ -48,7 +47,6 @@ public class Trabajador extends javax.swing.JFrame {
         });
 
         BotonIniciar.setText("Iniciar ");
-        BotonIniciar.setEnabled(false);
         BotonIniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotonIniciarActionPerformed(evt);
@@ -118,6 +116,7 @@ public class Trabajador extends javax.swing.JFrame {
     private void BotonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIniciarActionPerformed
         ElegirTienda Elegir = new ElegirTienda(ClaseConexion);
         Elegir.Ejecutar();
+        dispose();
     }//GEN-LAST:event_BotonIniciarActionPerformed
     
 

@@ -1,6 +1,6 @@
 package principal;
 
-import Ventanas.Trabajador;
+import ventanas.Trabajador;
 import com.mysql.jdbc.Connection;
 
 public class Principal extends javax.swing.JFrame {

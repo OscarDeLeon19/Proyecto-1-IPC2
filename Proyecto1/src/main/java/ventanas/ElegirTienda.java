@@ -1,4 +1,4 @@
-package Ventanas;
+package ventanas;
 
 import com.mysql.jdbc.Connection;
 import java.sql.PreparedStatement;
@@ -61,7 +61,7 @@ public class ElegirTienda extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         BotonIngresar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         Tabla1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -92,6 +92,7 @@ public class ElegirTienda extends javax.swing.JFrame {
         jTextField1.setEditable(false);
         jTextField1.setText("Ingresa el codigo de la tienda:");
 
+        TextoContraseña.setText("ABC-1");
         TextoContraseña.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TextoContraseñaActionPerformed(evt);
@@ -174,8 +175,9 @@ public class ElegirTienda extends javax.swing.JFrame {
                 String Telefono_2 = rs.getString("Telefono_2");
                 String Correo = rs.getString("Correo");
                 String Horario = rs.getString("Horario");
-                Tienda tienda = new Tienda(Nombre, Direccion, Codigo, Telefono_1, Telefono_2, Correo, Horario);
+                Tienda tienda = new Tienda(Nombre, Direccion, Codigo, Telefono_1, Telefono_2, Correo, Horario, ClaseConexion);
                 tienda.Ejecutar();
+                dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Codigo Incorrecto");
             }

@@ -1,4 +1,4 @@
-package Ventanas;
+package ventanas;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
