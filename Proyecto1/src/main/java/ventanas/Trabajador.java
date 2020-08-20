@@ -5,7 +5,7 @@
  */
 package ventanas;
 
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
@@ -13,12 +13,12 @@ import principal.Conexion;
 
 public class Trabajador extends javax.swing.JFrame {
 
-    Conexion ClaseConexion;
-
-    public Trabajador(Conexion ClaseConexion) {
+    Connection conexion;
+    
+    public Trabajador(Connection conexion) {
         initComponents();
+        this.conexion = conexion;
         this.setLocationRelativeTo(null);
-        this.ClaseConexion = ClaseConexion;
     }
 
     @SuppressWarnings("unchecked")
@@ -81,14 +81,14 @@ public class Trabajador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Boton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton1ActionPerformed
-        CargarArchivo cargararchivo = new CargarArchivo(ClaseConexion);
+        CargarArchivo cargararchivo = new CargarArchivo(conexion);
         cargararchivo.Ejecutar();
 
 
     }//GEN-LAST:event_Boton1ActionPerformed
 
     private void BotonComprobarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonComprobarActionPerformed
-        Connection con = ClaseConexion.getConnection2();
+        Connection con = conexion;
         try {
 
             PreparedStatement ps;
@@ -105,7 +105,7 @@ public class Trabajador extends javax.swing.JFrame {
                 Boton1.setEnabled(true);
                 JOptionPane.showMessageDialog(null, "No hay datos en la base de datos");
             }
-             con.close();
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -114,7 +114,7 @@ public class Trabajador extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonComprobarActionPerformed
 
     private void BotonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIniciarActionPerformed
-        ElegirTienda Elegir = new ElegirTienda(ClaseConexion);
+        ElegirTienda Elegir = new ElegirTienda(conexion);
         Elegir.Ejecutar();
         dispose();
     }//GEN-LAST:event_BotonIniciarActionPerformed
@@ -125,7 +125,7 @@ public class Trabajador extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Trabajador(ClaseConexion).setVisible(true);
+                new Trabajador(conexion).setVisible(true);
 
             }
         });

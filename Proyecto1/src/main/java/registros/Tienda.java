@@ -1,10 +1,15 @@
 package registros;
 
+import acciones.Entrega;
+import acciones.Pedido;
+import acciones.Reporte;
+import acciones.Venta;
 import informacion_empresa.Datos_Cliente;
 import informacion_empresa.Datos_Empleado;
 import informacion_empresa.Datos_Producto;
 import informacion_empresa.Datos_Tiempo;
 import informacion_empresa.Datos_Tienda;
+import java.sql.Connection;
 import javax.swing.JOptionPane;
 import principal.Conexion;
 
@@ -17,9 +22,9 @@ public class Tienda extends javax.swing.JFrame {
     private String Telefono_2;
     private String Correo;
     private String Horario;
-    Conexion ClaseConexion;
+    Connection conexion;
 
-    public Tienda(String Nombre, String Direccion, String Codigo, String Telefono_1, String Telefono_2, String Correo, String Horario, Conexion ClaseConexion) {
+    public Tienda(String Nombre, String Direccion, String Codigo, String Telefono_1, String Telefono_2, String Correo, String Horario, Connection conexion) {
         initComponents();
         this.Nombre = Nombre;
         this.Direccion = Direccion;
@@ -28,7 +33,7 @@ public class Tienda extends javax.swing.JFrame {
         this.Telefono_2 = Telefono_2;
         this.Correo = Correo;
         this.Horario = Horario;
-        this.ClaseConexion = ClaseConexion;
+        this.conexion = conexion;
         Titulo.setText(Nombre);
     }
 
@@ -95,12 +100,32 @@ public class Tienda extends javax.swing.JFrame {
         jTextField3.setText("Acciones a realizar ");
 
         BotonVentas.setText("Ventas");
+        BotonVentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonVentasActionPerformed(evt);
+            }
+        });
 
         BotonPedidos.setText("Pedidos");
+        BotonPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonPedidosActionPerformed(evt);
+            }
+        });
 
         BotonEntregas.setText("Entregas");
+        BotonEntregas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonEntregasActionPerformed(evt);
+            }
+        });
 
         BotonReportes.setText("Reportes");
+        BotonReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonReportesActionPerformed(evt);
+            }
+        });
 
         BotonTiempo.setText("Tiempo entre Tiendas");
         BotonTiempo.addActionListener(new java.awt.event.ActionListener() {
@@ -190,29 +215,50 @@ public class Tienda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonTiendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonTiendasActionPerformed
-        Datos_Tienda tienda = new Datos_Tienda(ClaseConexion);
+        Datos_Tienda tienda = new Datos_Tienda(conexion);
         tienda.Ejecutar();
     }//GEN-LAST:event_BotonTiendasActionPerformed
 
     private void BotonProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonProductosActionPerformed
-        Datos_Producto producto = new Datos_Producto(ClaseConexion);
+        Datos_Producto producto = new Datos_Producto(conexion);
         producto.Ejecutar();
     }//GEN-LAST:event_BotonProductosActionPerformed
 
     private void BotonEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEmpleadosActionPerformed
-        Datos_Empleado empleado = new Datos_Empleado(ClaseConexion);
+        Datos_Empleado empleado = new Datos_Empleado(conexion);
         empleado.Ejecutar();
     }//GEN-LAST:event_BotonEmpleadosActionPerformed
 
     private void BotonClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonClientesActionPerformed
-        Datos_Cliente cliente = new Datos_Cliente(ClaseConexion);
+        Datos_Cliente cliente = new Datos_Cliente(conexion);
         cliente.Ejecutar();
     }//GEN-LAST:event_BotonClientesActionPerformed
 
     private void BotonTiempoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonTiempoActionPerformed
-        Datos_Tiempo Tiempo = new Datos_Tiempo(ClaseConexion, Codigo);
+        Datos_Tiempo Tiempo = new Datos_Tiempo(conexion, Codigo);
         Tiempo.Ejecutar();
     }//GEN-LAST:event_BotonTiempoActionPerformed
+
+    private void BotonVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonVentasActionPerformed
+        Venta venta = new Venta(conexion, Codigo);
+        venta.Ejecutar();
+        
+    }//GEN-LAST:event_BotonVentasActionPerformed
+
+    private void BotonPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonPedidosActionPerformed
+        Pedido pedido = new Pedido(conexion, Codigo);
+        pedido.Ejecutar();
+    }//GEN-LAST:event_BotonPedidosActionPerformed
+
+    private void BotonEntregasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEntregasActionPerformed
+        Entrega entrega = new Entrega(conexion,Codigo);
+        entrega.Ejecutar();
+    }//GEN-LAST:event_BotonEntregasActionPerformed
+
+    private void BotonReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonReportesActionPerformed
+        Reporte reporte = new Reporte(conexion, Codigo);
+        reporte.Ejecutar();
+    }//GEN-LAST:event_BotonReportesActionPerformed
 
     public void Ejecutar() {
         /* Set the Nimbus look and feel */
@@ -242,7 +288,7 @@ public class Tienda extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Tienda(Nombre, Direccion, Codigo, Telefono_1, Telefono_2, Correo, Horario, ClaseConexion).setVisible(true);
+                new Tienda(Nombre, Direccion, Codigo, Telefono_1, Telefono_2, Correo, Horario, conexion).setVisible(true);
             }
         });
     }

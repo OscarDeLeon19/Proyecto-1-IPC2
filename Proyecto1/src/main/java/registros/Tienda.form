@@ -179,21 +179,33 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Ventas"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonVentasActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BotonPedidos">
       <Properties>
         <Property name="text" type="java.lang.String" value="Pedidos"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonPedidosActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BotonEntregas">
       <Properties>
         <Property name="text" type="java.lang.String" value="Entregas"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonEntregasActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BotonReportes">
       <Properties>
         <Property name="text" type="java.lang.String" value="Reportes"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonReportesActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BotonTiempo">
       <Properties>

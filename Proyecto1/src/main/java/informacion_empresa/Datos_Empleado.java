@@ -1,6 +1,6 @@
 package informacion_empresa;
 
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -10,12 +10,11 @@ import principal.Conexion;
 
 public class Datos_Empleado extends javax.swing.JFrame {
 
-    private Conexion ClaseConexion;
     private Connection conexion;
 
-    public Datos_Empleado(Conexion ClaseConexion) {
+    public Datos_Empleado(Connection conexion) {
         initComponents();
-        this.ClaseConexion = ClaseConexion;
+        this.conexion = conexion;
     }
 
     @SuppressWarnings("unchecked")
@@ -268,15 +267,14 @@ public class Datos_Empleado extends javax.swing.JFrame {
     private void BotonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListarActionPerformed
         try {
 
-            conexion = ClaseConexion.getConnection2();
             DefaultTableModel modelo = new DefaultTableModel();
             Tabla1.setModel(modelo);
-            PreparedStatement parametro;
+            PreparedStatement PrSt;
             ResultSet resultado = null;
             String ComandoSQL = "SELECT * FROM Empleado ORDER BY Codigo_Empleado ASC";
 
-            parametro = conexion.prepareStatement(ComandoSQL);
-            resultado = parametro.executeQuery();
+            PrSt = conexion.prepareStatement(ComandoSQL);
+            resultado = PrSt.executeQuery();
 
             ResultSetMetaData result = resultado.getMetaData();
             int Columnas = result.getColumnCount();
@@ -297,7 +295,8 @@ public class Datos_Empleado extends javax.swing.JFrame {
                 }
                 modelo.addRow(filas);
             }
-
+            PrSt.close();
+            resultado.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -306,15 +305,15 @@ public class Datos_Empleado extends javax.swing.JFrame {
     private void BotonListarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListarCodigoActionPerformed
         try {
             String Codigo = Texto1.getText();
-            conexion = ClaseConexion.getConnection2();
             DefaultTableModel modelo = new DefaultTableModel();
             Tabla1.setModel(modelo);
-            PreparedStatement parametro;
+            PreparedStatement PrSt;
             ResultSet resultado = null;
-            String ComandoSQL = "SELECT * FROM Empleado WHERE Codigo_Empleado = '" + Codigo + "' ORDER BY Codigo_Empleado ASC";
+            String ComandoSQL = "SELECT * FROM Empleado WHERE Codigo_Empleado = ? ORDER BY Codigo_Empleado ASC";
 
-            parametro = conexion.prepareStatement(ComandoSQL);
-            resultado = parametro.executeQuery();
+            PrSt = conexion.prepareStatement(ComandoSQL);
+            PrSt.setString(1, Codigo);
+            resultado = PrSt.executeQuery();
 
             ResultSetMetaData result = resultado.getMetaData();
             int Columnas = result.getColumnCount();
@@ -335,7 +334,8 @@ public class Datos_Empleado extends javax.swing.JFrame {
                 }
                 modelo.addRow(filas);
             }
-
+            PrSt.close();
+            resultado.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -344,15 +344,15 @@ public class Datos_Empleado extends javax.swing.JFrame {
     private void BotonListarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListarNombreActionPerformed
         try {
             String Nombre = Texto2.getText();
-            conexion = ClaseConexion.getConnection2();
             DefaultTableModel modelo = new DefaultTableModel();
             Tabla1.setModel(modelo);
-            PreparedStatement parametro;
+            PreparedStatement PrSt;
             ResultSet resultado = null;
-            String ComandoSQL = "SELECT * FROM Empleado WHERE Nombre = '" + Nombre + "' ORDER BY Codigo_Empleado ASC";
+            String ComandoSQL = "SELECT * FROM Empleado WHERE Nombre = ? ORDER BY Codigo_Empleado ASC";
 
-            parametro = conexion.prepareStatement(ComandoSQL);
-            resultado = parametro.executeQuery();
+            PrSt = conexion.prepareStatement(ComandoSQL);
+            PrSt.setString(1, Nombre);
+            resultado = PrSt.executeQuery();
 
             ResultSetMetaData result = resultado.getMetaData();
             int Columnas = result.getColumnCount();
@@ -373,23 +373,23 @@ public class Datos_Empleado extends javax.swing.JFrame {
                 }
                 modelo.addRow(filas);
             }
-
+            PrSt.close();
+            resultado.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_BotonListarNombreActionPerformed
 
     private void Tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla1MouseClicked
-        PreparedStatement accion;
-        ResultSet resultado = null;
 
         try {
-            conexion = ClaseConexion.getConnection2();
+            PreparedStatement PrSt;
+            ResultSet resultado = null;
             int Fila = Tabla1.getSelectedRow();
             String Codigo = Tabla1.getValueAt(Fila, 0).toString();
-            accion = conexion.prepareStatement("SELECT * FROM Empleado WHERE Codigo_Empleado = ?");
-            accion.setString(1, Codigo);
-            resultado = accion.executeQuery();
+            PrSt = conexion.prepareStatement("SELECT * FROM Empleado WHERE Codigo_Empleado = ?");
+            PrSt.setString(1, Codigo);
+            resultado = PrSt.executeQuery();
 
             while (resultado.next()) {
                 Texto1.setText(resultado.getString("Codigo_Empleado"));
@@ -400,14 +400,15 @@ public class Datos_Empleado extends javax.swing.JFrame {
                 Texto6.setText(resultado.getString("Correo"));
                 Texto7.setText(resultado.getString("Direccion"));
             }
-
+            PrSt.close();
+            resultado.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_Tabla1MouseClicked
 
     private void BotonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIngresarActionPerformed
-        PreparedStatement accion;
+        
         String Codigo_Empleado = Texto1.getText();
         String Nombre = Texto2.getText();
         String Telefono = Texto3.getText();
@@ -438,20 +439,20 @@ public class Datos_Empleado extends javax.swing.JFrame {
             Direccion = null;
         }
         try {
-            conexion = ClaseConexion.getConnection2();
+            PreparedStatement PrSt;
             String SQLQuery = "INSERT INTO Empleado (Codigo_Empleado, Nombre, Telefono, NIT, DPI, Correo, Direccion) VALUES(?,?,?,?,?,?,?)";
-            accion = conexion.prepareStatement(SQLQuery);
-            accion.setString(1, Codigo_Empleado);
-            accion.setString(2, Nombre);
-            accion.setString(3, Telefono);
-            accion.setString(4, NIT);
-            accion.setString(5, DPI);
-            accion.setString(6, Correo);
-            accion.setString(7, Direccion);
+            PrSt = conexion.prepareStatement(SQLQuery);
+            PrSt.setString(1, Codigo_Empleado);
+            PrSt.setString(2, Nombre);
+            PrSt.setString(3, Telefono);
+            PrSt.setString(4, NIT);
+            PrSt.setString(5, DPI);
+            PrSt.setString(6, Correo);
+            PrSt.setString(7, Direccion);
 
-            int resultado = accion.executeUpdate();
+            int resultado = PrSt.executeUpdate();
             JOptionPane.showMessageDialog(null, "Informacion Ingresada");
-
+            PrSt.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -468,7 +469,7 @@ public class Datos_Empleado extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonLimpiarActionPerformed
 
     private void BotonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonModificarActionPerformed
-        PreparedStatement accion;
+        
         String Codigo_Empleado = Texto1.getText();
         String Nombre = Texto2.getText();
         String Telefono = Texto3.getText();
@@ -499,18 +500,18 @@ public class Datos_Empleado extends javax.swing.JFrame {
             Direccion = null;
         }
         try {
-            conexion = ClaseConexion.getConnection2();
+            PreparedStatement PrSt;
             String SQLQuery = "UPDATE Empleado SET Nombre =?, Telefono =?, NIT =?, DPI =?, Correo =?, Direccion =? WHERE Codigo_Empleado =?";
-            accion = conexion.prepareStatement(SQLQuery);
-            accion.setString(1, Nombre);
-            accion.setString(2, Telefono);
-            accion.setString(3, NIT);
-            accion.setString(4, DPI);
-            accion.setString(5, Correo);
-            accion.setString(6, Direccion);
-            accion.setString(7, Codigo_Empleado);
+            PrSt = conexion.prepareStatement(SQLQuery);
+            PrSt.setString(1, Nombre);
+            PrSt.setString(2, Telefono);
+            PrSt.setString(3, NIT);
+            PrSt.setString(4, DPI);
+            PrSt.setString(5, Correo);
+            PrSt.setString(6, Direccion);
+            PrSt.setString(7, Codigo_Empleado);
 
-            int resultado = accion.executeUpdate();
+            int resultado = PrSt.executeUpdate();
             if (resultado > 0) {
                 JOptionPane.showMessageDialog(null, "Informacion Modificada");
                 Texto1.setText(null);
@@ -523,22 +524,22 @@ public class Datos_Empleado extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Fallo al modificar");
             }
-
+            PrSt.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_BotonModificarActionPerformed
 
     private void BotonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarActionPerformed
-        PreparedStatement accion;
+        
         try {
-            conexion = ClaseConexion.getConnection2();
+            PreparedStatement PrSt;
             String SQLQuery = "DELETE FROM Empleado WHERE Codigo_Empleado = ?";
-            accion = conexion.prepareStatement(SQLQuery);
+            PrSt = conexion.prepareStatement(SQLQuery);
 
-            accion.setString(1, Texto1.getText());
+            PrSt.setString(1, Texto1.getText());
 
-            int resultado = accion.executeUpdate();
+            int resultado = PrSt.executeUpdate();
             if (resultado > 0) {
                 JOptionPane.showMessageDialog(null, "Informacion Eliminada");
                 Texto1.setText(null);
@@ -551,7 +552,7 @@ public class Datos_Empleado extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Fallo al Eliminar");
             }
-
+            PrSt.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -585,7 +586,7 @@ public class Datos_Empleado extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Datos_Empleado(ClaseConexion).setVisible(true);
+                new Datos_Empleado(conexion).setVisible(true);
             }
         });
     }

@@ -1,12 +1,11 @@
 package ventanas;
 
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.PreparedStatement;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.sql.Date;
-import java.sql.ResultSet;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import principal.Conexion;
@@ -16,15 +15,14 @@ public class CargarArchivo extends javax.swing.JFrame {
     File fichero;
     String Fallo[] = new String[100];
     int fallos;
-    PreparedStatement ps;
-    ResultSet rs;
-    Conexion ClaseConexion;
-    Connection con;
 
-    public CargarArchivo(Conexion ClaseConexion) {
+    Conexion ClaseConexion;
+    Connection conexion;
+
+    public CargarArchivo(Connection conexion) {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.ClaseConexion = ClaseConexion;
+        this.conexion = conexion;
     }
 
     /**
@@ -121,7 +119,6 @@ public class CargarArchivo extends javax.swing.JFrame {
 
     private void BotonCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCargarActionPerformed
         fallos = 0;
-        con = ClaseConexion.getConnection2();
         try {
             FileReader Lector = new FileReader(fichero);
             BufferedReader bufer = new BufferedReader(Lector);
@@ -165,7 +162,6 @@ public class CargarArchivo extends javax.swing.JFrame {
                 Area1.append(Fallo[i]);
                 Area1.append("\n");
             }
-            con.close();
         } catch (Exception e) {
             Area1.setText("No se encontro el archivo");
         }
@@ -173,9 +169,9 @@ public class CargarArchivo extends javax.swing.JFrame {
 
     public void AgregarTienda(String Linea, int Comas[]) {
 
-        
         try {
-            ps = (PreparedStatement) con.prepareStatement("INSERT INTO Tienda (Nombre, Direccion, Codigo, Telefono_1, Telefono_2, Correo, Horario) VALUES(?,?,?,?,?,?,?) ");
+            PreparedStatement ps;
+            ps = conexion.prepareStatement("INSERT INTO Tienda (Nombre, Direccion, Codigo, Telefono_1, Telefono_2, Correo, Horario) VALUES(?,?,?,?,?,?,?) ");
             ps.setString(1, Linea.substring(Comas[0] + 1, Comas[1]));
             ps.setString(2, Linea.substring(Comas[1] + 1, Comas[2]));
             ps.setString(3, Linea.substring(Comas[2] + 1, Comas[3]));
@@ -184,6 +180,7 @@ public class CargarArchivo extends javax.swing.JFrame {
             ps.setString(6, null);
             ps.setString(7, null);
             int res = ps.executeUpdate();
+            ps.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
             Fallo[fallos] = Linea;
@@ -194,11 +191,13 @@ public class CargarArchivo extends javax.swing.JFrame {
     public void AgregarTiempo(String Linea, int Comas[]) {
 
         try {
-            ps = (PreparedStatement) con.prepareStatement("INSERT INTO Tiempo (Codigo_Tienda1, Codigo_Tienda2, Tiempo) VALUES(?,?,?) ");
+            PreparedStatement ps;
+            ps = conexion.prepareStatement("INSERT INTO Tiempo (Codigo_Tienda1, Codigo_Tienda2, Tiempo) VALUES(?,?,?) ");
             ps.setString(1, Linea.substring(Comas[0] + 1, Comas[1]));
             ps.setString(2, Linea.substring(Comas[1] + 1, Comas[2]));
             ps.setInt(3, Integer.parseInt(Linea.substring(Comas[2] + 1, Linea.length())));
             int res = ps.executeUpdate();
+            ps.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
             Fallo[fallos] = Linea;
@@ -209,8 +208,8 @@ public class CargarArchivo extends javax.swing.JFrame {
 
     public void AgregarProducto(String Linea, int Comas[]) {
         try {
-
-            ps = (PreparedStatement) con.prepareStatement("INSERT INTO Producto (Nombre, Fabricante, Codigo, Cantidad, Precio, Codigo_Tienda, Descripcion, Garantia) VALUES(?,?,?,?,?,?,?,?) ");
+            PreparedStatement ps;
+            ps =  conexion.prepareStatement("INSERT INTO Producto (Nombre, Fabricante, Codigo, Cantidad, Precio, Codigo_Tienda, Descripcion, Garantia) VALUES(?,?,?,?,?,?,?,?) ");
             ps.setString(1, Linea.substring(Comas[0] + 1, Comas[1]));
             ps.setString(2, Linea.substring(Comas[1] + 1, Comas[2]));
             ps.setString(3, Linea.substring(Comas[2] + 1, Comas[3]));
@@ -220,6 +219,7 @@ public class CargarArchivo extends javax.swing.JFrame {
             ps.setString(7, null);
             ps.setString(8, null);
             int res = ps.executeUpdate();
+            ps.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
             Fallo[fallos] = Linea;
@@ -231,7 +231,8 @@ public class CargarArchivo extends javax.swing.JFrame {
     public void AgregarEmpleado(String Linea, int Comas[]) {
 
         try {
-            ps = (PreparedStatement) con.prepareStatement("INSERT INTO Empleado (Codigo_Empleado, Nombre, Telefono, NIT, DPI, Correo, Direccion) VALUES(?,?,?,?,?,?,?) ");
+            PreparedStatement ps;
+            ps = (PreparedStatement) conexion.prepareStatement("INSERT INTO Empleado (Codigo_Empleado, Nombre, Telefono, NIT, DPI, Correo, Direccion) VALUES(?,?,?,?,?,?,?) ");
             ps.setString(1, Linea.substring(Comas[1] + 1, Comas[2]));
             ps.setString(2, Linea.substring(Comas[0] + 1, Comas[1]));
             ps.setString(3, Linea.substring(Comas[2] + 1, Comas[3]));
@@ -240,6 +241,7 @@ public class CargarArchivo extends javax.swing.JFrame {
             ps.setString(6, null);
             ps.setString(7, null);
             int res = ps.executeUpdate();
+            ps.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
             Fallo[fallos] = Linea;
@@ -250,7 +252,8 @@ public class CargarArchivo extends javax.swing.JFrame {
     public void AgregarCliente(String Linea, int Comas[]) {
 
         try {
-            ps = (PreparedStatement) con.prepareStatement("INSERT INTO Cliente (Nombre, Telefono, NIT, DPI, Credito, Correo, Direccion) VALUES(?,?,?,?,?,?,?) ");
+            PreparedStatement ps;
+            ps = conexion.prepareStatement("INSERT INTO Cliente (Nombre, Telefono, NIT, DPI, Credito, Correo, Direccion) VALUES(?,?,?,?,?,?,?) ");
             ps.setString(1, Linea.substring(Comas[0] + 1, Comas[1]));
             ps.setString(2, Linea.substring(Comas[2] + 1, Comas[3]));
             ps.setString(3, Linea.substring(Comas[1] + 1, Comas[2]));
@@ -259,6 +262,7 @@ public class CargarArchivo extends javax.swing.JFrame {
             ps.setString(6, null);
             ps.setString(7, null);
             int res = ps.executeUpdate();
+            ps.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
             Fallo[fallos] = Linea;
@@ -268,20 +272,10 @@ public class CargarArchivo extends javax.swing.JFrame {
     }
 
     public void AgregarPedido(String Linea, int Comas[]) {
-//        System.out.println(Linea.substring(0, Comas[0]));
-//        System.out.println(Linea.substring(Comas[0] + 1, Comas[1]));
-//        System.out.println(Linea.substring(Comas[1] + 1, Comas[2]));
-//        System.out.println(Linea.substring(Comas[2] + 1, Comas[3]));
-//        System.out.println(Linea.substring(Comas[3] + 1, Comas[4]));
-//        System.out.println(Linea.substring(Comas[4] + 1, Comas[5]));
-//        System.out.println(Linea.substring(Comas[5] + 1, Comas[6]));
-//        System.out.println(Linea.substring(Comas[6] + 1, Comas[7]));
-//        System.out.println(Linea.substring(Comas[7] + 1, Comas[8]));
-//        System.out.println(Linea.substring(Comas[8] + 1, Linea.length()));
-//        System.out.println("");
 
         try {
-            ps = (PreparedStatement) con.prepareStatement("INSERT INTO Pedido (Codigo_Pedido, Codigo_Tienda1, Codigo_Tienda2, Fecha, NIT_Cliente, Codigo_Producto, Cantidad, Total, Anticipo) VALUES(?,?,?,?,?,?,?,?,?) ");
+            PreparedStatement ps;
+            ps = conexion.prepareStatement("INSERT INTO Pedido (Codigo_Pedido, Codigo_Tienda1, Codigo_Tienda2, Fecha, NIT_Cliente, Codigo_Producto, Cantidad, Total, Anticipo) VALUES(?,?,?,?,?,?,?,?,?) ");
             ps.setString(1, Linea.substring(Comas[0] + 1, Comas[1]));
             ps.setString(2, Linea.substring(Comas[1] + 1, Comas[2]));
             ps.setString(3, Linea.substring(Comas[2] + 1, Comas[3]));
@@ -292,6 +286,7 @@ public class CargarArchivo extends javax.swing.JFrame {
             ps.setDouble(8, Double.parseDouble(Linea.substring(Comas[7] + 1, Comas[8])));
             ps.setDouble(9, Double.parseDouble(Linea.substring(Comas[8] + 1, Linea.length())));
             int res = ps.executeUpdate();
+            ps.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
             Fallo[fallos] = Linea;
@@ -327,7 +322,7 @@ public class CargarArchivo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CargarArchivo(ClaseConexion).setVisible(true);
+                new CargarArchivo(conexion).setVisible(true);
             }
         });
     }

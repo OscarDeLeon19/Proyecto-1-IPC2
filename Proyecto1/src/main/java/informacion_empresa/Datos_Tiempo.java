@@ -1,6 +1,6 @@
 package informacion_empresa;
 
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -10,19 +10,17 @@ import principal.Conexion;
 
 public class Datos_Tiempo extends javax.swing.JFrame {
 
-    private Conexion ClaseConexion;
     private Connection conexion;
     private String Codigo_Tienda;
 
-    public Datos_Tiempo(Conexion ClaseConexion, String Codigo_Tienda) {
+    public Datos_Tiempo(Connection conexion, String Codigo_Tienda) {
         initComponents();
-        this.ClaseConexion = ClaseConexion;
+        this.conexion = conexion;
         this.Codigo_Tienda = Codigo_Tienda;
         Texto1.setText(Codigo_Tienda);
 
         try {
 
-            conexion = ClaseConexion.getConnection2();
             DefaultTableModel ModeloTienda = new DefaultTableModel();
             Tabla2.setModel(ModeloTienda);
             PreparedStatement ps;
@@ -51,7 +49,8 @@ public class Datos_Tiempo extends javax.swing.JFrame {
                 }
                 ModeloTienda.addRow(filas);
             }
-
+            ps.close();
+            res.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -286,17 +285,16 @@ public class Datos_Tiempo extends javax.swing.JFrame {
         Texto8.setText(null);
         try {
 
-            conexion = ClaseConexion.getConnection2();
             DefaultTableModel modelo = new DefaultTableModel();
             Tabla1.setModel(modelo);
-            PreparedStatement parametro;
+            PreparedStatement PrSt;
             ResultSet resultado = null;
             String ComandoSQL = "SELECT * FROM Tiempo WHERE Codigo_Tienda1 =? OR Codigo_Tienda2 =? ORDER BY Tiempo ASC";
 
-            parametro = conexion.prepareStatement(ComandoSQL);
-            parametro.setString(1, Texto1.getText());
-            parametro.setString(2, Texto1.getText());
-            resultado = parametro.executeQuery();
+            PrSt = conexion.prepareStatement(ComandoSQL);
+            PrSt.setString(1, Texto1.getText());
+            PrSt.setString(2, Texto1.getText());
+            resultado = PrSt.executeQuery();
 
             ResultSetMetaData result = resultado.getMetaData();
             int Columnas = result.getColumnCount();
@@ -314,7 +312,8 @@ public class Datos_Tiempo extends javax.swing.JFrame {
                 }
                 modelo.addRow(filas);
             }
-
+            PrSt.close();
+            resultado.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -322,10 +321,7 @@ public class Datos_Tiempo extends javax.swing.JFrame {
 
     private void BotonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIngresarActionPerformed
         boolean comprobacion = false;
-        PreparedStatement accion;
-        PreparedStatement Q1;
-        PreparedStatement Q2;
-        ResultSet RS;
+
         Texto8.setText(null);
         String Codigo1 = Texto1.getText();
         String Codigo2 = Texto2.getText();
@@ -341,8 +337,10 @@ public class Datos_Tiempo extends javax.swing.JFrame {
             Tiempo = null;
         }
         try {
-            conexion = ClaseConexion.getConnection2();
-
+            PreparedStatement PrSt;
+            PreparedStatement Q1;
+            PreparedStatement Q2;
+            ResultSet RS;
             String Query = "SELECT * FROM Tiempo WHERE Codigo_Tienda1 = ? AND Codigo_Tienda2 = ?";
 
             Q1 = conexion.prepareStatement(Query);
@@ -363,17 +361,20 @@ public class Datos_Tiempo extends javax.swing.JFrame {
 
             if (comprobacion == false) {
                 String SQLQuery = "INSERT INTO Tiempo (Codigo_Tienda1, Codigo_Tienda2, Tiempo) VALUES(?,?,?)";
-                accion = conexion.prepareStatement(SQLQuery);
-                accion.setString(1, Codigo1);
-                accion.setString(2, Codigo2);
-                accion.setString(3, Tiempo);
+                PrSt = conexion.prepareStatement(SQLQuery);
+                PrSt.setString(1, Codigo1);
+                PrSt.setString(2, Codigo2);
+                PrSt.setString(3, Tiempo);
 
-                int resultado = accion.executeUpdate();
+                int resultado = PrSt.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Informacion Ingresada");
+                PrSt.close();
             } else {
                 JOptionPane.showMessageDialog(null, "El tiempo entre esas tientas ya esta establecido");
             }
-
+            Q1.close();
+            Q2.close();
+            RS.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -400,15 +401,15 @@ public class Datos_Tiempo extends javax.swing.JFrame {
         if ("".equals(Tiempo)) {
             Tiempo = null;
         }
-        PreparedStatement accion;
-        try {
-            conexion = ClaseConexion.getConnection2();
-            String SQLQuery = "UPDATE Tiempo SET Tiempo =? WHERE ID_Tiempo =?";
-            accion = conexion.prepareStatement(SQLQuery);
-            accion.setString(1, Tiempo);
-            accion.setString(8, Texto8.getText());
 
-            int resultado = accion.executeUpdate();
+        try {
+            PreparedStatement PrSt;
+            String SQLQuery = "UPDATE Tiempo SET Tiempo =? WHERE ID_Tiempo =?";
+            PrSt = conexion.prepareStatement(SQLQuery);
+            PrSt.setString(1, Tiempo);
+            PrSt.setString(8, Texto8.getText());
+
+            int resultado = PrSt.executeUpdate();
             if (resultado > 0) {
                 JOptionPane.showMessageDialog(null, "Informacion Modificada");
                 Texto1.setText(null);
@@ -418,22 +419,22 @@ public class Datos_Tiempo extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Fallo al modificar");
             }
-
+            PrSt.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_BotonModificarActionPerformed
 
     private void BotonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarActionPerformed
-        PreparedStatement accion;
+
         try {
-            conexion = ClaseConexion.getConnection2();
+            PreparedStatement PrSt;
             String SQLQuery = "DELETE FROM Tiempo WHERE ID_Tiempo = ?";
-            accion = conexion.prepareStatement(SQLQuery);
+            PrSt = conexion.prepareStatement(SQLQuery);
 
-            accion.setString(1, Texto8.getText());
+            PrSt.setString(1, Texto8.getText());
 
-            int resultado = accion.executeUpdate();
+            int resultado = PrSt.executeUpdate();
             if (resultado > 0) {
                 JOptionPane.showMessageDialog(null, "Informacion Eliminada");
                 Texto1.setText(null);
@@ -443,23 +444,23 @@ public class Datos_Tiempo extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Fallo al Eliminar");
             }
-
+            PrSt.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_BotonEliminarActionPerformed
 
     private void Tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla1MouseClicked
-        PreparedStatement accion;
-        ResultSet resultado = null;
 
         try {
-            conexion = ClaseConexion.getConnection2();
+            PreparedStatement PrSt;
+            ResultSet resultado = null;
+
             int Fila = Tabla1.getSelectedRow();
             String Codigo = Tabla1.getValueAt(Fila, 0).toString();
-            accion = conexion.prepareStatement("SELECT * FROM Tiempo WHERE ID_Tiempo = ?");
-            accion.setString(1, Codigo);
-            resultado = accion.executeQuery();
+            PrSt = conexion.prepareStatement("SELECT * FROM Tiempo WHERE ID_Tiempo = ?");
+            PrSt.setString(1, Codigo);
+            resultado = PrSt.executeQuery();
 
             while (resultado.next()) {
                 Texto8.setText(resultado.getString("ID_Tiempo"));
@@ -467,7 +468,8 @@ public class Datos_Tiempo extends javax.swing.JFrame {
                 Texto2.setText(resultado.getString("Codigo_Tienda2"));
                 Texto3.setText(resultado.getString("Tiempo"));
             }
-
+            PrSt.close();
+            resultado.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -501,7 +503,7 @@ public class Datos_Tiempo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Datos_Tiempo(ClaseConexion, Codigo_Tienda).setVisible(true);
+                new Datos_Tiempo(conexion, Codigo_Tienda).setVisible(true);
             }
         });
     }

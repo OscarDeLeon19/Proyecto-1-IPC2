@@ -1,6 +1,6 @@
 package informacion_empresa;
 
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -10,12 +10,11 @@ import principal.Conexion;
 
 public class Datos_Producto extends javax.swing.JFrame {
 
-    private Conexion ClaseConexion;
     private Connection conexion;
 
-    public Datos_Producto(Conexion ClaseConexion) {
+    public Datos_Producto(Connection conexion) {
         initComponents();
-        this.ClaseConexion = ClaseConexion;
+        this.conexion = conexion;
     }
 
     @SuppressWarnings("unchecked")
@@ -301,15 +300,14 @@ public class Datos_Producto extends javax.swing.JFrame {
     private void BotonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListarActionPerformed
         try {
 
-            conexion = ClaseConexion.getConnection2();
             DefaultTableModel modelo = new DefaultTableModel();
             Tabla1.setModel(modelo);
-            PreparedStatement parametro;
+            PreparedStatement PrSt;
             ResultSet resultado = null;
             String ComandoSQL = "SELECT * FROM Producto ORDER BY Codigo ASC";
 
-            parametro = conexion.prepareStatement(ComandoSQL);
-            resultado = parametro.executeQuery();
+            PrSt = conexion.prepareStatement(ComandoSQL);
+            resultado = PrSt.executeQuery();
 
             ResultSetMetaData result = resultado.getMetaData();
             int Columnas = result.getColumnCount();
@@ -332,7 +330,8 @@ public class Datos_Producto extends javax.swing.JFrame {
                 }
                 modelo.addRow(filas);
             }
-
+            PrSt.close();
+            resultado.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -341,15 +340,15 @@ public class Datos_Producto extends javax.swing.JFrame {
     private void BotonListarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListarNombreActionPerformed
         try {
             String Nombre = Texto1.getText();
-            conexion = ClaseConexion.getConnection2();
             DefaultTableModel modelo = new DefaultTableModel();
             Tabla1.setModel(modelo);
-            PreparedStatement parametro;
+            PreparedStatement PrSt;
             ResultSet resultado = null;
-            String ComandoSQL = "SELECT * FROM Producto WHERE Nombre = '" + Nombre + "' ORDER BY Codigo ASC";
+            String ComandoSQL = "SELECT * FROM Producto WHERE Nombre = ? ORDER BY Codigo ASC";
 
-            parametro = conexion.prepareStatement(ComandoSQL);
-            resultado = parametro.executeQuery();
+            PrSt = conexion.prepareStatement(ComandoSQL);
+            PrSt.setString(1, Nombre);
+            resultado = PrSt.executeQuery();
 
             ResultSetMetaData result = resultado.getMetaData();
             int Columnas = result.getColumnCount();
@@ -372,7 +371,8 @@ public class Datos_Producto extends javax.swing.JFrame {
                 }
                 modelo.addRow(filas);
             }
-
+            PrSt.close();
+            resultado.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -381,15 +381,15 @@ public class Datos_Producto extends javax.swing.JFrame {
     private void BotonListarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListarCodigoActionPerformed
         try {
             String Codigo = Texto3.getText();
-            conexion = ClaseConexion.getConnection2();
             DefaultTableModel modelo = new DefaultTableModel();
             Tabla1.setModel(modelo);
-            PreparedStatement parametro;
+            PreparedStatement PrSt;
             ResultSet resultado = null;
-            String ComandoSQL = "SELECT * FROM Producto WHERE Codigo = '" + Codigo + "' ORDER BY Codigo ASC";
+            String ComandoSQL = "SELECT * FROM Producto WHERE Codigo = ? ORDER BY Codigo ASC";
 
-            parametro = conexion.prepareStatement(ComandoSQL);
-            resultado = parametro.executeQuery();
+            PrSt = conexion.prepareStatement(ComandoSQL);
+            PrSt.setString(1, Codigo);
+            resultado = PrSt.executeQuery();
 
             ResultSetMetaData result = resultado.getMetaData();
             int Columnas = result.getColumnCount();
@@ -412,23 +412,23 @@ public class Datos_Producto extends javax.swing.JFrame {
                 }
                 modelo.addRow(filas);
             }
-
+            PrSt.close();
+            resultado.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_BotonListarCodigoActionPerformed
 
     private void Tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla1MouseClicked
-        PreparedStatement accion;
-        ResultSet resultado = null;
 
         try {
-            conexion = ClaseConexion.getConnection2();
+            PreparedStatement PrSt;
+            ResultSet resultado = null;
             int Fila = Tabla1.getSelectedRow();
             String Codigo = Tabla1.getValueAt(Fila, 0).toString();
-            accion = conexion.prepareStatement("SELECT * FROM Producto WHERE ID = ?");
-            accion.setString(1, Codigo);
-            resultado = accion.executeQuery();
+            PrSt = conexion.prepareStatement("SELECT * FROM Producto WHERE ID = ?");
+            PrSt.setString(1, Codigo);
+            resultado = PrSt.executeQuery();
 
             while (resultado.next()) {
 
@@ -442,16 +442,15 @@ public class Datos_Producto extends javax.swing.JFrame {
                 Texto8.setText(String.valueOf(resultado.getInt("Garantia")));
                 Texto9.setText(String.valueOf(resultado.getInt("ID")));
             }
-
+            PrSt.close();
+            resultado.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_Tabla1MouseClicked
 
     private void BotonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIngresarActionPerformed
-        PreparedStatement accion;
-        PreparedStatement Comprobacion;
-        ResultSet rs = null;
+
         boolean ProductoComprobado = false;
         Texto9.setText(null);
         String Nombre = Texto1.getText();
@@ -488,12 +487,14 @@ public class Datos_Producto extends javax.swing.JFrame {
             Garantia = "0";
         }
         try {
-            conexion = ClaseConexion.getConnection2();
+            PreparedStatement PrSt1;
+            PreparedStatement PrSt2;
+            ResultSet rs = null;
             String ComprobarQuery = "SELECT * FROM Producto WHERE Codigo = ? AND Codigo_Tienda = ?";
-            Comprobacion = conexion.prepareCall(ComprobarQuery);
-            Comprobacion.setString(1, Codigo);
-            Comprobacion.setString(2, CodigoTienda);
-            rs = Comprobacion.executeQuery();
+            PrSt2 = conexion.prepareCall(ComprobarQuery);
+            PrSt2.setString(1, Codigo);
+            PrSt2.setString(2, CodigoTienda);
+            rs = PrSt2.executeQuery();
 
             if (rs.next()) {
                 ProductoComprobado = true;
@@ -501,22 +502,25 @@ public class Datos_Producto extends javax.swing.JFrame {
 
             if (ProductoComprobado == false) {
                 String SQLQuery = "INSERT INTO Producto (Nombre, Fabricante, Codigo, Cantidad, Precio, Codigo_Tienda, Descripcion, Garantia) VALUES(?,?,?,?,?,?,?,?)";
-                accion = conexion.prepareStatement(SQLQuery);
-                accion.setString(1, Nombre);
-                accion.setString(2, Fabricante);
-                accion.setString(3, Codigo);
-                accion.setInt(4, Integer.parseInt(Cantidad));
-                accion.setDouble(5, Double.parseDouble(Precio));
-                accion.setString(6, CodigoTienda);
-                accion.setString(7, Descripcion);
-                accion.setInt(8, Integer.parseInt(Garantia));
+                PrSt1 = conexion.prepareStatement(SQLQuery);
+                PrSt1.setString(1, Nombre);
+                PrSt1.setString(2, Fabricante);
+                PrSt1.setString(3, Codigo);
+                PrSt1.setInt(4, Integer.parseInt(Cantidad));
+                PrSt1.setDouble(5, Double.parseDouble(Precio));
+                PrSt1.setString(6, CodigoTienda);
+                PrSt1.setString(7, Descripcion);
+                PrSt1.setInt(8, Integer.parseInt(Garantia));
 
-                int resultado = accion.executeUpdate();
+                int resultado = PrSt1.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Informacion Ingresada");
+                PrSt1.close();
             } else {
                 JOptionPane.showMessageDialog(null, "Este producto ya esta ingresado en la tienda");
             }
 
+            PrSt2.close();
+            rs.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -535,8 +539,7 @@ public class Datos_Producto extends javax.swing.JFrame {
     }//GEN-LAST:event_BotonLimpiarActionPerformed
 
     private void BotonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonModificarActionPerformed
-        PreparedStatement Comprobacion;
-        ResultSet rs = null;
+
         boolean ProductoComprobado = false;
         String Nombre = Texto1.getText();
         String Fabricante = Texto2.getText();
@@ -571,32 +574,34 @@ public class Datos_Producto extends javax.swing.JFrame {
         if ("".equals(Garantia)) {
             Garantia = "0";
         }
-        PreparedStatement accion;
+
         try {
-            conexion = ClaseConexion.getConnection2();
+            PreparedStatement PrSt1;
+            PreparedStatement PrSt2;
+            ResultSet rs = null;
             String ComprobarQuery = "SELECT * FROM Producto WHERE Codigo = ? AND Codigo_Tienda = ?";
-            Comprobacion = conexion.prepareCall(ComprobarQuery);
-            Comprobacion.setString(1, Codigo);
-            Comprobacion.setString(2, CodigoTienda);
-            rs = Comprobacion.executeQuery();
+            PrSt1 = conexion.prepareCall(ComprobarQuery);
+            PrSt1.setString(1, Codigo);
+            PrSt1.setString(2, CodigoTienda);
+            rs = PrSt1.executeQuery();
 
             if (rs.next()) {
                 ProductoComprobado = true;
             }
             if (ProductoComprobado == false) {
                 String SQLQuery = "UPDATE Producto SET Nombre =?, Fabricante =?, Codigo =?, Cantidad =?, Precio =?, Codigo_Tienda =?, Descripcion =?, Garantia = ? WHERE ID =?";
-                accion = conexion.prepareStatement(SQLQuery);
-                accion.setString(1, Nombre);
-                accion.setString(2, Fabricante);
-                accion.setString(3, Codigo);
-                accion.setInt(4, Integer.parseInt(Cantidad));
-                accion.setDouble(5, Double.parseDouble(Precio));
-                accion.setString(6, CodigoTienda);
-                accion.setString(7, Descripcion);
-                accion.setInt(8, Integer.parseInt(Garantia));
-                accion.setInt(9, Integer.parseInt(Texto9.getText()));
+                PrSt2 = conexion.prepareStatement(SQLQuery);
+                PrSt2.setString(1, Nombre);
+                PrSt2.setString(2, Fabricante);
+                PrSt2.setString(3, Codigo);
+                PrSt2.setInt(4, Integer.parseInt(Cantidad));
+                PrSt2.setDouble(5, Double.parseDouble(Precio));
+                PrSt2.setString(6, CodigoTienda);
+                PrSt2.setString(7, Descripcion);
+                PrSt2.setInt(8, Integer.parseInt(Garantia));
+                PrSt2.setInt(9, Integer.parseInt(Texto9.getText()));
 
-                int resultado = accion.executeUpdate();
+                int resultado = PrSt2.executeUpdate();
                 if (resultado > 0) {
                     JOptionPane.showMessageDialog(null, "Informacion Modificada");
                     Texto1.setText(null);
@@ -611,26 +616,27 @@ public class Datos_Producto extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "Fallo al modificar");
                 }
-
+                PrSt2.close();
             } else {
                 JOptionPane.showMessageDialog(null, "No se puede modificar porque el producto ya existe");
             }
-
+            PrSt1.close();
+            rs.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_BotonModificarActionPerformed
 
     private void BotonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarActionPerformed
-        PreparedStatement accion;
+
         try {
-            conexion = ClaseConexion.getConnection2();
+            PreparedStatement PrSt;
             String SQLQuery = "DELETE FROM Producto WHERE ID = ?";
-            accion = conexion.prepareStatement(SQLQuery);
+            PrSt = conexion.prepareStatement(SQLQuery);
 
-            accion.setInt(1, Integer.parseInt(Texto9.getText()));
+            PrSt.setInt(1, Integer.parseInt(Texto9.getText()));
 
-            int resultado = accion.executeUpdate();
+            int resultado = PrSt.executeUpdate();
             if (resultado > 0) {
                 JOptionPane.showMessageDialog(null, "Informacion Eliminada");
                 Texto1.setText(null);
@@ -645,7 +651,7 @@ public class Datos_Producto extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Fallo al Eliminar");
             }
-
+            PrSt.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -658,15 +664,15 @@ public class Datos_Producto extends javax.swing.JFrame {
     private void BotonListarCodigoTiendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListarCodigoTiendaActionPerformed
         try {
             String Codigo = Texto6.getText();
-            conexion = ClaseConexion.getConnection2();
             DefaultTableModel modelo = new DefaultTableModel();
             Tabla1.setModel(modelo);
-            PreparedStatement parametro;
+            PreparedStatement PrSt;
             ResultSet resultado = null;
-            String ComandoSQL = "SELECT * FROM Producto WHERE Codigo_Tienda = '" + Codigo + "' ORDER BY Codigo ASC";
+            String ComandoSQL = "SELECT * FROM Producto WHERE Codigo_Tienda = ? ORDER BY Codigo ASC";
 
-            parametro = conexion.prepareStatement(ComandoSQL);
-            resultado = parametro.executeQuery();
+            PrSt = conexion.prepareStatement(ComandoSQL);
+            PrSt.setString(1, Codigo);
+            resultado = PrSt.executeQuery();
 
             ResultSetMetaData result = resultado.getMetaData();
             int Columnas = result.getColumnCount();
@@ -689,7 +695,8 @@ public class Datos_Producto extends javax.swing.JFrame {
                 }
                 modelo.addRow(filas);
             }
-
+            PrSt.close();
+            resultado.close();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
         }
@@ -723,7 +730,7 @@ public class Datos_Producto extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Datos_Producto(ClaseConexion).setVisible(true);
+                new Datos_Producto(conexion).setVisible(true);
             }
         });
     }

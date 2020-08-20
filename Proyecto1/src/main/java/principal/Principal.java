@@ -1,7 +1,7 @@
 package principal;
 
 import ventanas.Trabajador;
-import com.mysql.jdbc.Connection;
+import java.sql.Connection;
 
 public class Principal extends javax.swing.JFrame {
 
@@ -147,7 +147,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void BotonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIniciarActionPerformed
-        Trabajador trabajador = new Trabajador(ClaseConexion);
+        Trabajador trabajador = new Trabajador(conexion);
         trabajador.Ejecutar();
         dispose();
     }//GEN-LAST:event_BotonIniciarActionPerformed

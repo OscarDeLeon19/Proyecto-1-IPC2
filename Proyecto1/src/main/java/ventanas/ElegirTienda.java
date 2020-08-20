@@ -1,9 +1,11 @@
 package ventanas;
 
-import com.mysql.jdbc.Connection;
+import java.awt.HeadlessException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import principal.Conexion;
@@ -11,16 +13,14 @@ import registros.Tienda;
 
 public class ElegirTienda extends javax.swing.JFrame {
 
-    private Conexion ClaseConexion;
     private Connection conexion;
 
-    public ElegirTienda(Conexion ClaseConexion) {
+    public ElegirTienda(Connection conexion) {
         initComponents();
-        this.ClaseConexion = ClaseConexion;
+        this.conexion = conexion;
 
         try {
 
-            conexion = ClaseConexion.getConnection2();
             DefaultTableModel modelo = new DefaultTableModel();
             Tabla1.setModel(modelo);
             PreparedStatement ps;
@@ -44,8 +44,10 @@ public class ElegirTienda extends javax.swing.JFrame {
                 }
                 modelo.addRow(filas);
             }
-
-        } catch (Exception e) {
+            
+            ps.close();
+            res.close();
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);
         }
     }
@@ -175,14 +177,16 @@ public class ElegirTienda extends javax.swing.JFrame {
                 String Telefono_2 = rs.getString("Telefono_2");
                 String Correo = rs.getString("Correo");
                 String Horario = rs.getString("Horario");
-                Tienda tienda = new Tienda(Nombre, Direccion, Codigo, Telefono_1, Telefono_2, Correo, Horario, ClaseConexion);
+                Tienda tienda = new Tienda(Nombre, Direccion, Codigo, Telefono_1, Telefono_2, Correo, Horario, conexion);
                 tienda.Ejecutar();
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Codigo Incorrecto");
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            ps.close();
+            rs.close();
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }//GEN-LAST:event_BotonIngresarActionPerformed
 
@@ -214,7 +218,7 @@ public class ElegirTienda extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new ElegirTienda(ClaseConexion).setVisible(true);
+                new ElegirTienda(conexion).setVisible(true);
             }
         });
     }
