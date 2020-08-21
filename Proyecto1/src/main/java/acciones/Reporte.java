@@ -8,15 +8,15 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import principal.Exportar;
 
 public class Reporte extends javax.swing.JFrame {
 
     private Connection conexion;
     private String TiendaActual;
-    private Date Fecha1;
-    private Date Fecha2;
     private Date FechaTemporal;
-    private Date FechaPedido;
+    private Date FechaIngresada;
+    private Date FechaEntrada;
 
     public Reporte(Connection conexion, String TiendaActual) {
         initComponents();
@@ -40,6 +40,7 @@ public class Reporte extends javax.swing.JFrame {
         Boton9 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Area1 = new javax.swing.JTextArea();
+        BotonExportar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Informacion");
@@ -62,44 +63,89 @@ public class Reporte extends javax.swing.JFrame {
         });
 
         Boton3.setText("Listado de todos los pedidos atrasados que llegarán a la tienda");
+        Boton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Boton3ActionPerformed(evt);
+            }
+        });
 
         Boton4.setText("Listado de todos los pedidos que salieron de la tienda y están en tránsito");
+        Boton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Boton4ActionPerformed(evt);
+            }
+        });
 
         Boton5.setText("Listado de todas las compras realizadas por un cliente");
+        Boton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Boton5ActionPerformed(evt);
+            }
+        });
 
         Boton6.setText("Listado de todos los pedidos en curso de un cliente");
+        Boton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Boton6ActionPerformed(evt);
+            }
+        });
 
         Boton7.setText("Listado de los diez productos más vendidos en un intervalo de tiempo");
+        Boton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Boton7ActionPerformed(evt);
+            }
+        });
 
         Boton8.setText("Listado de los productos más vendidos por tienda en un intervalo de tiempo");
+        Boton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Boton8ActionPerformed(evt);
+            }
+        });
 
         Boton9.setText("Listado de productos que nunca se han vendido por tienda");
+        Boton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Boton9ActionPerformed(evt);
+            }
+        });
 
         Area1.setEditable(false);
         Area1.setColumns(20);
         Area1.setRows(5);
         jScrollPane1.setViewportView(Area1);
 
+        BotonExportar.setText("Exportar Reporte");
+        BotonExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonExportarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField1)
-                        .addComponent(Boton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Boton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Boton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Boton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Boton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Boton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Boton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Boton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Boton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addGap(46, 46, 46)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 838, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Boton9, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Boton8, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Boton7, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Boton6, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Boton3, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Boton2)
+                            .addComponent(Boton1, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Boton5, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Boton4, javax.swing.GroupLayout.PREFERRED_SIZE, 653, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(41, 41, 41)
+                        .addComponent(BotonExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,20 +159,25 @@ public class Reporte extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Boton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Boton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Boton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Boton6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Boton7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Boton8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Boton9)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Boton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Boton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Boton6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Boton7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Boton8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Boton9))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(BotonExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                .addGap(18, 18, 18))
         );
 
         pack();
@@ -135,7 +186,7 @@ public class Reporte extends javax.swing.JFrame {
     private void Boton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton1ActionPerformed
         try {
             Area1.setText(null);
-            Area1.append("Pedido/ID_Pedido/Codigo_Pedido/Codigo_Tienda1/Codigo_Tienda2/Fecha/NIT_Cliente/Cantidad/Total/Anticipo/Credito");
+            Area1.append("| Pedido | ID_Pedido | Codigo_Pedido | Codigo_Tienda1 | Codigo_Tienda2 | Fecha | NIT_Cliente | Cantidad | Total | Anticipo | Credito |<br>");
             Area1.append("\n");
             PreparedStatement PrSt;
             ResultSet rs;
@@ -156,7 +207,7 @@ public class Reporte extends javax.swing.JFrame {
                 String Anticipo = rs.getString("Anticipo");
                 String Credito = rs.getString("Credito");
 
-                String Cadena = "PEDIDO/" + ID + "/" + Pedido + "/" + Tienda1 + "/" + Tienda2 + "/" + Fecha + "/" + NIT + "/" + Cantidad + "/" + Total + "/" + Anticipo + "/" + Credito;
+                String Cadena = "| Pedido | " + ID + " | " + Pedido + " | " + Tienda1 + " | " + Tienda2 + " | " + Fecha + " | " + NIT + " | " + Cantidad + " | " + Total + " | " + Anticipo + " | " + Credito + " |<br>";
                 Area1.append(Cadena);
                 Area1.append("\n");
             }
@@ -166,8 +217,369 @@ public class Reporte extends javax.swing.JFrame {
     }//GEN-LAST:event_Boton1ActionPerformed
 
     private void Boton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton2ActionPerformed
-        
+
+        try {
+
+            String Fecha1 = JOptionPane.showInputDialog("Ingresa la fecha");
+            FechaIngresada = Date.valueOf(Fecha1);
+            Area1.setText(null);
+            Area1.append("| Pedido | ID_Pedido | Codigo_Pedido | Codigo_Tienda1 | Codigo_Tienda2 | Fecha | NIT_Cliente | Cantidad | Total | Anticipo | Credito |<br>");
+            Area1.append("\n");
+            PreparedStatement PrSt;
+            ResultSet rs;
+            String Query = "SELECT * FROM Pedido WHERE Codigo_Tienda2 = ? AND Estado IS NULL";
+            PrSt = conexion.prepareStatement(Query);
+            PrSt.setString(1, TiendaActual);
+            rs = PrSt.executeQuery();
+
+            while (rs.next()) {
+                String ID = rs.getString("ID_Pedido");
+                String Pedido = rs.getString("Codigo_Pedido");
+                String Tienda1 = rs.getString("Codigo_Tienda1");
+                String Tienda2 = rs.getString("Codigo_Tienda2");
+                String Fecha2 = rs.getString("Fecha");
+                String NIT = rs.getString("NIT_Cliente");
+                String Cantidad = rs.getString("Cantidad");
+                String Total = rs.getString("Total");
+                String Anticipo = rs.getString("Anticipo");
+                String Credito = rs.getString("Credito");
+
+                int Dias = ObtenerTiempo(Tienda1, Tienda2);
+                boolean comprobacion = SumarDias(Fecha2, Dias);
+                if (comprobacion == true) {
+                    String Cadena = "| Pedido | " + ID + " | " + Pedido + " | " + Tienda1 + " | " + Tienda2 + " | " + Fecha2 + " | " + NIT + " | " + Cantidad + " | " + Total + " | " + Anticipo + " | " + Credito + " |<br>";
+                    Area1.append(Cadena);
+                    Area1.append("\n");
+
+                }
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e);
+        }
     }//GEN-LAST:event_Boton2ActionPerformed
+
+    private void Boton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton4ActionPerformed
+        try {
+            Area1.setText(null);
+            Area1.append("| Pedido | ID_Pedido | Codigo_Pedido | Codigo_Tienda1 | Codigo_Tienda2 | Fecha | NIT_Cliente | Cantidad | Total | Anticipo | Credito |<br>");
+            Area1.append("\n");
+            PreparedStatement PrSt;
+            ResultSet rs;
+            String Query = "SELECT * FROM Pedido WHERE Codigo_Tienda1 = ? AND Estado IS NULL";
+            PrSt = conexion.prepareStatement(Query);
+            PrSt.setString(1, TiendaActual);
+            rs = PrSt.executeQuery();
+
+            while (rs.next()) {
+                String ID = rs.getString("ID_Pedido");
+                String Pedido = rs.getString("Codigo_Pedido");
+                String Tienda1 = rs.getString("Codigo_Tienda1");
+                String Tienda2 = rs.getString("Codigo_Tienda2");
+                String Fecha = rs.getString("Fecha");
+                String NIT = rs.getString("NIT_Cliente");
+                String Cantidad = rs.getString("Cantidad");
+                String Total = rs.getString("Total");
+                String Anticipo = rs.getString("Anticipo");
+                String Credito = rs.getString("Credito");
+
+                String Cadena = "| Pedido | " + ID + " | " + Pedido + " | " + Tienda1 + " | " + Tienda2 + " | " + Fecha + " | " + NIT + " | " + Cantidad + " | " + Total + " | " + Anticipo + " | " + Credito + " |<br>";
+                Area1.append(Cadena);
+                Area1.append("\n");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e);
+        }
+    }//GEN-LAST:event_Boton4ActionPerformed
+
+    private void Boton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton5ActionPerformed
+        String Nit = JOptionPane.showInputDialog("Ingresa el NIT del cliente");
+        try {
+            Area1.setText(null);
+            Area1.append("| Venta | ID_Venta | Codigo_Producto | Codigo_Tienda | NIT_Cliente | Cantidad | Pago | Credito | Fecha |<br>");
+            Area1.append("\n");
+            PreparedStatement PrSt;
+            ResultSet rs;
+            String Query = "SELECT * FROM Venta WHERE NIT_Cliente = ? ";
+            PrSt = conexion.prepareStatement(Query);
+            PrSt.setString(1, Nit);
+            rs = PrSt.executeQuery();
+
+            while (rs.next()) {
+                String ID = rs.getString("ID_Venta");
+                String Producto = rs.getString("Codigo_Producto");
+                String Tienda = rs.getString("Codigo_Tienda");
+                String NIT = rs.getString("NIT_Cliente");
+                String Cantidad = rs.getString("Cantidad");
+                String Pago = rs.getString("Pago");
+                String Credito = rs.getString("Credito");
+                String Fecha = rs.getString("Fecha");
+
+                String Cadena = "| Venta | " + ID + " | " + Producto + " | " + Tienda + " | " + NIT + " | " + Cantidad + " | " + Pago + " | " + Credito + " | " + Fecha + " |<br> ";
+                Area1.append(Cadena);
+                Area1.append("\n");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e);
+        }
+    }//GEN-LAST:event_Boton5ActionPerformed
+
+    private void Boton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton6ActionPerformed
+        String Nit = JOptionPane.showInputDialog("Ingresa el NIT del cliente");
+        try {
+            Area1.setText(null);
+            Area1.append("| Pedido | ID_Pedido | Codigo_Pedido | Codigo_Tienda1 | Codigo_Tienda2 | Fecha | NIT_Cliente | Cantidad | Total | Anticipo | Credito |<br>");
+            Area1.append("\n");
+            PreparedStatement PrSt;
+            ResultSet rs;
+            String Query = "SELECT * FROM Pedido WHERE NIT_Cliente = ? AND Estado IS NULL";
+            PrSt = conexion.prepareStatement(Query);
+            PrSt.setString(1, Nit);
+            rs = PrSt.executeQuery();
+
+            while (rs.next()) {
+                String ID = rs.getString("ID_Pedido");
+                String Pedido = rs.getString("Codigo_Pedido");
+                String Tienda1 = rs.getString("Codigo_Tienda1");
+                String Tienda2 = rs.getString("Codigo_Tienda2");
+                String Fecha = rs.getString("Fecha");
+                String NIT = rs.getString("NIT_Cliente");
+                String Cantidad = rs.getString("Cantidad");
+                String Total = rs.getString("Total");
+                String Anticipo = rs.getString("Anticipo");
+                String Credito = rs.getString("Credito");
+
+                String Cadena = "| Pedido | " + ID + " | " + Pedido + " | " + Tienda1 + " | " + Tienda2 + " | " + Fecha + " | " + NIT + " | " + Cantidad + " | " + Total + " | " + Anticipo + " | " + Credito + " |<br>";
+                Area1.append(Cadena);
+                Area1.append("\n");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e);
+        }
+    }//GEN-LAST:event_Boton6ActionPerformed
+
+    private void Boton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton7ActionPerformed
+
+        try {
+            Area1.setText(null);
+            Area1.append("| Productos_Vendidos| -- |Codigo_Producto|<br> ");
+            Area1.append("\n");
+            PreparedStatement PrSt = null;
+            ResultSet rs;
+            int confirmar = JOptionPane.showConfirmDialog(null, "¿Ingresar intervalo de tiempo?");
+            if (confirmar == JOptionPane.YES_OPTION) {
+                String FechaInicial = JOptionPane.showInputDialog("Ingresa la primera fecha");
+                String FechaFinal = JOptionPane.showInputDialog("Ingresa la segunda fecha");
+                String Query = "SELECT SUM(Cantidad) AS Productos_Vendidos, Codigo_Producto FROM Venta WHERE Fecha BETWEEN ? AND ? GROUP BY Codigo_Producto ORDER BY SUM(Cantidad) DESC LIMIT 10";
+                PrSt = conexion.prepareStatement(Query);
+                PrSt.setDate(1, Date.valueOf(FechaInicial));
+                PrSt.setDate(2, Date.valueOf(FechaFinal));
+            } else {
+                String Query = "SELECT SUM(Cantidad) AS Productos_Vendidos, Codigo_Producto FROM Venta GROUP BY Codigo_Producto ORDER BY SUM(Cantidad) DESC LIMIT 10";
+                PrSt = conexion.prepareStatement(Query);
+            }
+
+            rs = PrSt.executeQuery();
+
+            while (rs.next()) {
+                String ProVendidos = rs.getString("Productos_Vendidos");
+                String Producto = rs.getString("Codigo_Producto");
+
+                String Cadena = "| " + ProVendidos + " | -- | " + Producto + " |<br>";
+                Area1.append(Cadena);
+                Area1.append("\n");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e);
+        }
+    }//GEN-LAST:event_Boton7ActionPerformed
+
+    private void Boton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton8ActionPerformed
+        try {
+            Area1.setText(null);
+            Area1.append("| Productos_Vendidos | -- | Codigo_Tienda |<br>");
+            Area1.append("\n");
+            PreparedStatement PrSt = null;
+            ResultSet rs;
+            int confirmar = JOptionPane.showConfirmDialog(null, "¿Ingresar intervalo de tiempo?");
+            if (confirmar == JOptionPane.YES_OPTION) {
+                String FechaInicial = JOptionPane.showInputDialog("Ingresa la primera fecha");
+                String FechaFinal = JOptionPane.showInputDialog("Ingresa la segunda fecha");
+                String Query = "SELECT SUM(Cantidad) AS Productos_Vendidos, Codigo_Tienda FROM Venta WHERE Fecha BETWEEN ? AND ? GROUP BY Codigo_Tienda ORDER BY SUM(Cantidad) DESC";
+                PrSt = conexion.prepareStatement(Query);
+                PrSt.setDate(1, Date.valueOf(FechaInicial));
+                PrSt.setDate(2, Date.valueOf(FechaFinal));
+            } else {
+                String Query = "SELECT SUM(Cantidad) AS Productos_Vendidos, Codigo_Tienda FROM Venta GROUP BY Codigo_Tienda ORDER BY SUM(Cantidad) DESC ";
+                PrSt = conexion.prepareStatement(Query);
+            }
+
+            rs = PrSt.executeQuery();
+
+            while (rs.next()) {
+                String ProVendidos = rs.getString("Productos_Vendidos");
+                String Tienda = rs.getString("Codigo_Tienda");
+
+                String Cadena = "| " + ProVendidos + " | -- | " + Tienda + " |<br>";
+                Area1.append(Cadena);
+                Area1.append("\n");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e);
+        }
+    }//GEN-LAST:event_Boton8ActionPerformed
+
+    private void Boton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton9ActionPerformed
+        try {
+            Area1.setText(null);
+            Area1.append("| Producto | ID | Nombre | Fabricante | Codigo | Cantidad | Precio | Codigo_Tienda | Descripcion | Garantia |<br>");
+            Area1.append("\n");
+            PreparedStatement PrSt;
+            ResultSet rs;
+            String Query = "SELECT * FROM Producto WHERE Codigo NOT IN (SELECT Codigo_Producto FROM Venta)";
+            PrSt = conexion.prepareStatement(Query);
+            rs = PrSt.executeQuery();
+
+            while (rs.next()) {
+                String ID = rs.getString("ID");
+                String Nombre = rs.getString("Nombre");
+                String Fabricante = rs.getString("Fabricante");
+                String Codigo = rs.getString("Codigo");
+                String Cantidad = rs.getString("Cantidad");
+                String Precio = rs.getString("Precio");
+                String Codigo_Tienda = rs.getString("Codigo_Tienda");
+                String Descripcion = rs.getString("Descripcion");
+                String Garantia = rs.getString("Garantia");
+
+                String Cadena = "| Producto | " + ID + " | " + Nombre + " | " + Fabricante + " | " + Codigo + " | " + Cantidad + " | " + Precio + " | " + Codigo_Tienda + " | " + Descripcion + " | " + Garantia + " |<br>";
+                Area1.append(Cadena);
+                Area1.append("\n");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e);
+        }
+    }//GEN-LAST:event_Boton9ActionPerformed
+
+    private void Boton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton3ActionPerformed
+        try {
+
+            String Fecha1 = JOptionPane.showInputDialog("Ingresa la fecha");
+            FechaIngresada = Date.valueOf(Fecha1);
+            Area1.setText(null);
+            Area1.append("| Pedido | ID_Pedido | Codigo_Pedido | Codigo_Tienda1 | Codigo_Tienda2 | Fecha | NIT_Cliente | Cantidad | Total | Anticipo | Credito |<br>");
+            Area1.append("\n");
+            PreparedStatement PrSt;
+            ResultSet rs;
+            String Query = "SELECT * FROM Pedido WHERE Codigo_Tienda2 = ? AND Estado IS NULL";
+            PrSt = conexion.prepareStatement(Query);
+            PrSt.setString(1, TiendaActual);
+            rs = PrSt.executeQuery();
+
+            while (rs.next()) {
+                String ID = rs.getString("ID_Pedido");
+                String Pedido = rs.getString("Codigo_Pedido");
+                String Tienda1 = rs.getString("Codigo_Tienda1");
+                String Tienda2 = rs.getString("Codigo_Tienda2");
+                String Fecha2 = rs.getString("Fecha");
+                String NIT = rs.getString("NIT_Cliente");
+                String Cantidad = rs.getString("Cantidad");
+                String Total = rs.getString("Total");
+                String Anticipo = rs.getString("Anticipo");
+                String Credito = rs.getString("Credito");
+
+                int Dias = ObtenerTiempo(Tienda1, Tienda2);
+                boolean comprobacion = SumarDias(Fecha2, Dias);
+                if (comprobacion == false) {
+                    String Cadena = "| Pedido | " + ID + " | " + Pedido + " | " + Tienda1 + " | " + Tienda2 + " | " + Fecha2 + " | " + NIT + " | " + Cantidad + " | " + Total + " | " + Anticipo + " | " + Credito + " | <br>";
+                    Area1.append(Cadena);
+                    Area1.append("\n");
+
+                }
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e);
+        }
+    }//GEN-LAST:event_Boton3ActionPerformed
+
+    private void BotonExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonExportarActionPerformed
+        String Texto = Area1.getText();
+        if ("".equals(Texto)) {
+             JOptionPane.showMessageDialog(null, "No hay reporte para exportar");
+        } else {
+            Exportar exportar = new Exportar(Texto);
+            exportar.ExportarReporte();
+        }
+    }//GEN-LAST:event_BotonExportarActionPerformed
+
+    public int ObtenerTiempo(String TiendaO, String TiendaD) {
+        int Dias = 0;
+        try {
+            PreparedStatement PrSt;
+            ResultSet resultado1 = null;
+            ResultSet resultado2 = null;
+            String SQLQuery = "SELECT * FROM Tiempo WHERE Codigo_Tienda1 = ? AND Codigo_Tienda2 = ?";
+            PrSt = conexion.prepareStatement(SQLQuery);
+            PrSt.setString(1, TiendaO);
+            PrSt.setString(2, TiendaD);
+            resultado1 = PrSt.executeQuery();
+            if (resultado1.next()) {
+                Dias = resultado1.getInt("Tiempo");
+            } else {
+                String SQLQuery2 = "SELECT * FROM Tiempo WHERE Codigo_Tienda1 = ? AND Codigo_Tienda2 = ?";
+                PrSt = conexion.prepareStatement(SQLQuery);
+                PrSt.setString(1, TiendaD);
+                PrSt.setString(2, TiendaO);
+                resultado2 = PrSt.executeQuery();
+                if (resultado2.next()) {
+                    Dias = resultado2.getInt("Tiempo");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No hay un tiempo estipulado");
+                    Dias = 0;
+                }
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e);
+        }
+        return Dias;
+    }
+
+    public boolean SumarDias(String Fecha, int dias) {
+        boolean regreso = false;
+        int Guion[] = new int[2];
+        int x = 0;
+        for (int i = 0; i < Fecha.length(); i++) {
+            int j = i + 1;
+            if ("-".equals(Fecha.substring(i, j))) {
+                Guion[x] = i;
+                x++;
+            }
+        }
+        int Año = Integer.parseInt(Fecha.substring(0, Guion[0]));
+        int Mes = Integer.parseInt(Fecha.substring(Guion[0] + 1, Guion[1]));
+        int Dia = Integer.parseInt(Fecha.substring(Guion[1] + 1, Fecha.length()));
+        FechaEntrada = new java.sql.Date(Año - 1900, Mes - 1, Dia);
+
+        Dia = Dia + dias;
+        if (Dia > 30) {
+            Dia = Dia - 30;
+            Mes++;
+            if (Mes > 12) {
+                Mes = 1;
+                Año++;
+            }
+        }
+
+        FechaTemporal = new java.sql.Date(Año - 1900, Mes - 1, Dia);
+        if (FechaIngresada.before(FechaTemporal) || FechaIngresada.equals(FechaTemporal)) {
+            regreso = true;
+        } else {
+            regreso = false;
+        }
+
+        return regreso;
+    }
 
     public void Ejecutar() {
         /* Set the Nimbus look and feel */
@@ -213,6 +625,7 @@ public class Reporte extends javax.swing.JFrame {
     private javax.swing.JButton Boton7;
     private javax.swing.JButton Boton8;
     private javax.swing.JButton Boton9;
+    private javax.swing.JButton BotonExportar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables

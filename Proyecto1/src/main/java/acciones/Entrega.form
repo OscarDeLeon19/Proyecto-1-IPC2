@@ -28,68 +28,68 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="Titulo" min="-2" pref="291" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="TextoCredito" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
-                                  <Component id="TextoAnticipo" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
-                                  <Component id="TextoHorario1" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
-                                  <Component id="TextoHorario" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
-                                  <Component id="TextoCorreo" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
-                                  <Component id="TextoTel2" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
-                                  <Component id="TextoTel1" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
-                                  <Component id="TextoCodigo" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="TextoDireccion" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
-                                  <Component id="TextoNombre" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="Texto1" min="-2" pref="329" max="-2" attributes="0"/>
-                                      <EmptySpace pref="124" max="32767" attributes="0"/>
-                                      <Component id="TextoAcciones" min="-2" pref="151" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="Texto2" alignment="0" min="-2" pref="329" max="-2" attributes="0"/>
-                                          <Component id="Texto3" alignment="0" min="-2" pref="329" max="-2" attributes="0"/>
-                                          <Component id="Texto4" alignment="0" min="-2" pref="329" max="-2" attributes="0"/>
-                                          <Component id="Texto5" alignment="0" min="-2" pref="329" max="-2" attributes="0"/>
-                                          <Component id="Texto6" alignment="0" min="-2" pref="329" max="-2" attributes="0"/>
-                                          <Component id="Texto7" alignment="0" min="-2" pref="329" max="-2" attributes="0"/>
-                                          <Component id="Texto8" alignment="0" min="-2" pref="329" max="-2" attributes="0"/>
-                                          <Component id="Texto10" min="-2" pref="329" max="-2" attributes="0"/>
-                                          <Component id="Texto9" alignment="0" min="-2" pref="329" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="BotonListar" pref="151" max="32767" attributes="0"/>
-                                          <Component id="BotonPedidoListo" max="32767" attributes="0"/>
-                                          <Component id="BotonPedidoFinalizado" alignment="0" max="32767" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="43" pref="43" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="Texto11" min="-2" pref="151" max="-2" attributes="0"/>
-                                  <Component id="BotonLimpiar" min="-2" pref="151" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="BotonIngresarPedido" alignment="1" min="-2" pref="151" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="BotonEntregarPedido" alignment="1" min="-2" pref="151" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="216" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <Component id="Titulo" min="-2" pref="291" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="TextoCredito" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
+                          <Component id="TextoAnticipo" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
+                          <Component id="TextoHorario1" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
+                          <Component id="TextoHorario" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
+                          <Component id="TextoCorreo" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
+                          <Component id="TextoTel2" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
+                          <Component id="TextoTel1" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
+                          <Component id="TextoCodigo" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="TextoDireccion" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
+                          <Component id="TextoNombre" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="Texto1" min="-2" pref="329" max="-2" attributes="0"/>
+                              <EmptySpace pref="124" max="32767" attributes="0"/>
+                              <Component id="TextoAcciones" min="-2" pref="151" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="Texto2" alignment="0" min="-2" pref="329" max="-2" attributes="0"/>
+                                  <Component id="Texto3" alignment="0" min="-2" pref="329" max="-2" attributes="0"/>
+                                  <Component id="Texto4" alignment="0" min="-2" pref="329" max="-2" attributes="0"/>
+                                  <Component id="Texto5" alignment="0" min="-2" pref="329" max="-2" attributes="0"/>
+                                  <Component id="Texto6" alignment="0" min="-2" pref="329" max="-2" attributes="0"/>
+                                  <Component id="Texto7" alignment="0" min="-2" pref="329" max="-2" attributes="0"/>
+                                  <Component id="Texto8" alignment="0" min="-2" pref="329" max="-2" attributes="0"/>
+                                  <Component id="Texto10" min="-2" pref="329" max="-2" attributes="0"/>
+                                  <Component id="Texto9" alignment="0" min="-2" pref="329" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="BotonListar" pref="151" max="32767" attributes="0"/>
+                                  <Component id="BotonPedidoListo" max="32767" attributes="0"/>
+                                  <Component id="BotonPedidoFinalizado" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                  </Group>
               </Group>
+              <EmptySpace min="43" pref="43" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="Texto11" min="-2" pref="151" max="-2" attributes="0"/>
+                          <Component id="BotonLimpiar" min="-2" pref="151" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="BotonIngresarPedido" alignment="1" min="-2" pref="151" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="BotonEntregarPedido" alignment="1" min="-2" pref="151" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="216" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -158,9 +158,9 @@
                   <Component id="Texto10" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="TextoCredito" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace pref="27" max="32767" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="201" max="-2" attributes="0"/>
-              <EmptySpace pref="34" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

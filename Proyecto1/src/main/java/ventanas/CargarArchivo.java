@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.sql.Date;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import principal.Conexion;
 
 public class CargarArchivo extends javax.swing.JFrame {
@@ -100,20 +101,24 @@ public class CargarArchivo extends javax.swing.JFrame {
         JFileChooser seleccionar = new JFileChooser();
         seleccionar.showOpenDialog(null);
         fichero = seleccionar.getSelectedFile();
-        try {
-            FileReader Lector = new FileReader(fichero);
-            BufferedReader bufer = new BufferedReader(Lector);
-            String linea = "";
+        if (fichero.getName().endsWith("txt")) {
+            try {
+                FileReader Lector = new FileReader(fichero);
+                BufferedReader bufer = new BufferedReader(Lector);
+                String linea = "";
 
-            while ((linea = bufer.readLine()) != null) {
-                Area1.append(linea);
-                Area1.append("\n");
+                while ((linea = bufer.readLine()) != null) {
+                    Area1.append(linea);
+                    Area1.append("\n");
+                }
+                BotonCargar.setEnabled(true);
+
+            } catch (Exception e) {
+                Area1.setText("No se encontro el archivo");
+                BotonCargar.setEnabled(false);
             }
-            BotonCargar.setEnabled(true);
-
-        } catch (Exception e) {
-            Area1.setText("No se encontro el archivo");
-            BotonCargar.setEnabled(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Archivo incorrecto");
         }
     }//GEN-LAST:event_BotonAbrirActionPerformed
 
@@ -209,7 +214,7 @@ public class CargarArchivo extends javax.swing.JFrame {
     public void AgregarProducto(String Linea, int Comas[]) {
         try {
             PreparedStatement ps;
-            ps =  conexion.prepareStatement("INSERT INTO Producto (Nombre, Fabricante, Codigo, Cantidad, Precio, Codigo_Tienda, Descripcion, Garantia) VALUES(?,?,?,?,?,?,?,?) ");
+            ps = conexion.prepareStatement("INSERT INTO Producto (Nombre, Fabricante, Codigo, Cantidad, Precio, Codigo_Tienda, Descripcion, Garantia) VALUES(?,?,?,?,?,?,?,?) ");
             ps.setString(1, Linea.substring(Comas[0] + 1, Comas[1]));
             ps.setString(2, Linea.substring(Comas[1] + 1, Comas[2]));
             ps.setString(3, Linea.substring(Comas[2] + 1, Comas[3]));

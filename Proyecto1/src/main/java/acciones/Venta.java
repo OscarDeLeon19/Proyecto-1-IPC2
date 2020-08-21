@@ -264,7 +264,7 @@ public class Venta extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(Tabla2);
 
-        jTextField1.setText("Pedidos");
+        jTextField1.setText("Ventas Realizadas");
 
         jTextField2.setText("Productos de la Tienda");
 

@@ -407,7 +407,7 @@ public class Datos_Tiempo extends javax.swing.JFrame {
             String SQLQuery = "UPDATE Tiempo SET Tiempo =? WHERE ID_Tiempo =?";
             PrSt = conexion.prepareStatement(SQLQuery);
             PrSt.setString(1, Tiempo);
-            PrSt.setString(8, Texto8.getText());
+            PrSt.setString(2, Texto8.getText());
 
             int resultado = PrSt.executeUpdate();
             if (resultado > 0) {

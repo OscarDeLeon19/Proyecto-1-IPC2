@@ -25,23 +25,27 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jScrollPane1" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jTextField1" max="32767" attributes="0"/>
-                      <Component id="Boton1" max="32767" attributes="0"/>
-                      <Component id="Boton2" max="32767" attributes="0"/>
-                      <Component id="Boton3" max="32767" attributes="0"/>
-                      <Component id="Boton4" max="32767" attributes="0"/>
-                      <Component id="Boton5" max="32767" attributes="0"/>
-                      <Component id="Boton6" max="32767" attributes="0"/>
-                      <Component id="Boton7" max="32767" attributes="0"/>
-                      <Component id="Boton8" max="32767" attributes="0"/>
-                      <Component id="Boton9" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane1" min="-2" pref="838" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jTextField1" min="-2" pref="653" max="-2" attributes="0"/>
+                          <Component id="Boton9" min="-2" pref="653" max="-2" attributes="0"/>
+                          <Component id="Boton8" min="-2" pref="653" max="-2" attributes="0"/>
+                          <Component id="Boton7" min="-2" pref="653" max="-2" attributes="0"/>
+                          <Component id="Boton6" min="-2" pref="653" max="-2" attributes="0"/>
+                          <Component id="Boton3" min="-2" pref="653" max="-2" attributes="0"/>
+                          <Component id="Boton2" min="-2" max="-2" attributes="0"/>
+                          <Component id="Boton1" min="-2" pref="653" max="-2" attributes="0"/>
+                          <Component id="Boton5" alignment="0" min="-2" pref="653" max="-2" attributes="0"/>
+                          <Component id="Boton4" alignment="0" min="-2" pref="653" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="BotonExportar" min="-2" pref="149" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace pref="56" max="32767" attributes="0"/>
+              <EmptySpace pref="20" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -57,20 +61,28 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="Boton3" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="Boton4" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="Boton5" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="Boton6" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="Boton7" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="Boton8" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="Boton9" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="241" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="Boton4" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="Boton5" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="Boton6" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="Boton7" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="Boton8" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="Boton9" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="BotonExportar" min="-2" pref="159" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" pref="207" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -102,36 +114,57 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Listado de todos los pedidos atrasados que llegar&#xe1;n a la tienda"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Boton3ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="Boton4">
       <Properties>
         <Property name="text" type="java.lang.String" value="Listado de todos los pedidos que salieron de la tienda y est&#xe1;n en tr&#xe1;nsito"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Boton4ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="Boton5">
       <Properties>
         <Property name="text" type="java.lang.String" value="Listado de todas las compras realizadas por un cliente"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Boton5ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="Boton6">
       <Properties>
         <Property name="text" type="java.lang.String" value="Listado de todos los pedidos en curso de un cliente"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Boton6ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="Boton7">
       <Properties>
         <Property name="text" type="java.lang.String" value="Listado de los diez productos m&#xe1;s vendidos en un intervalo de tiempo"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Boton7ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="Boton8">
       <Properties>
         <Property name="text" type="java.lang.String" value="Listado de los productos m&#xe1;s vendidos por tienda en un intervalo de tiempo"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Boton8ActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="Boton9">
       <Properties>
         <Property name="text" type="java.lang.String" value="Listado de productos que nunca se han vendido por tienda"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Boton9ActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues>
@@ -149,5 +182,13 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="BotonExportar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Exportar Reporte"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonExportarActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>
