@@ -3,6 +3,7 @@ package principal;
 
 import java.sql.Connection;
 import opciones_cliente.Catalogo_Producto;
+import opciones_cliente.Rastreo_Producto;
 
 
 public class VentanaOpcion extends javax.swing.JFrame {
@@ -32,6 +33,11 @@ public class VentanaOpcion extends javax.swing.JFrame {
         });
 
         BotonRastreo.setText("Rastreo de Pedido");
+        BotonRastreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonRastreoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -62,6 +68,11 @@ public class VentanaOpcion extends javax.swing.JFrame {
        catalogo.Ejecutar();
        
     }//GEN-LAST:event_BotonCatalogoActionPerformed
+
+    private void BotonRastreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRastreoActionPerformed
+        Rastreo_Producto pro = new Rastreo_Producto(conexion);
+        pro.Ejecutar();
+    }//GEN-LAST:event_BotonRastreoActionPerformed
 
     
     public void Ejecutar() {

@@ -1,16 +1,18 @@
 package opciones_cliente;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 public class Rastreo_Producto extends javax.swing.JFrame {
-    
+
     private int ID_Pedido;
     Connection conexion;
-    
-    
+    Date FechaIngresada;
+    String FechaIngresada1;
+
     public Rastreo_Producto(Connection conexion) {
         initComponents();
         this.conexion = conexion;
@@ -194,26 +196,213 @@ public class Rastreo_Producto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonBuscarActionPerformed
+        Limpiar();
         try {
-            PreparedStatement PrSt;
-            ResultSet resultado = null;
-            PrSt = conexion.prepareStatement("SELECT * FROM Pedido WHERE ID_Pedido = ?");
-            PrSt.setInt(1, ID_Pedido);
-            resultado = PrSt.executeQuery();
 
-            if (resultado.next()) {
-                
-                
+            String Fecha1 = JOptionPane.showInputDialog("Ingresa la fecha: (AAAA-MM-DD)");
+            boolean comprobacion = ComprobarFecha(Fecha1);
+            if (comprobacion == true) {
+                ID_Pedido = Integer.parseInt(Texto0.getText());
+                PreparedStatement PrSt;
+                ResultSet resultado = null;
+                PrSt = conexion.prepareStatement("SELECT * FROM Pedido WHERE ID_Pedido = ? AND Estado IS NULL");
+                PrSt.setInt(1, ID_Pedido);
+                resultado = PrSt.executeQuery();
+
+                if (resultado.next()) {
+                    int Dias = ObtenerTiempo(resultado.getString("Codigo_Tienda1"), resultado.getString("Codigo_Tienda2"));
+                    boolean DiasRestantes = EncontrarDias(resultado.getString("Fecha"), Dias);
+                    if (DiasRestantes == true) {
+                        ObtenerProducto();
+                        Texto3.setText(resultado.getString("Cantidad"));
+                        Texto4.setText(resultado.getString("Anticipo"));
+                        double Pago = resultado.getDouble("Total") - resultado.getDouble("Anticipo");
+                        Texto5.setText(String.valueOf(Pago));
+                        String TiendaOrigen = ObtenerTienda(resultado.getString("Codigo_Tienda1"));
+                        String TiendaDestino = ObtenerTienda(resultado.getString("Codigo_Tienda2"));
+                        Texto6.setText(TiendaOrigen);
+                        Texto7.setText(TiendaDestino);
+                    } else {
+                        System.out.println("Fallo");
+                    }
+                }
+                PrSt.close();
+                resultado.close();
+            } else {
+                JOptionPane.showMessageDialog(null, "No hubo fecha para comprobar");
             }
-            PrSt.close();
-            resultado.close();
+
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonBuscarActionPerformed
-    
-    
-    
+
+    public void Limpiar() {
+        Texto1.setText(null);
+        Texto2.setText(null);
+        Texto3.setText(null);
+        Texto4.setText(null);
+        Texto5.setText(null);
+        Texto6.setText(null);
+        Texto7.setText(null);
+    }
+
+    public int ObtenerTiempo(String TiendaO, String TiendaD) {
+        int Dias = 0;
+        try {
+            PreparedStatement PrSt;
+            ResultSet resultado1 = null;
+            ResultSet resultado2 = null;
+            String SQLQuery = "SELECT * FROM Tiempo WHERE Codigo_Tienda1 = ? AND Codigo_Tienda2 = ?";
+            PrSt = conexion.prepareStatement(SQLQuery);
+            PrSt.setString(1, TiendaO);
+            PrSt.setString(2, TiendaD);
+            resultado1 = PrSt.executeQuery();
+            if (resultado1.next()) {
+                Dias = resultado1.getInt("Tiempo");
+            } else {
+                String SQLQuery2 = "SELECT * FROM Tiempo WHERE Codigo_Tienda1 = ? AND Codigo_Tienda2 = ?";
+                PrSt = conexion.prepareStatement(SQLQuery);
+                PrSt.setString(1, TiendaD);
+                PrSt.setString(2, TiendaO);
+                resultado2 = PrSt.executeQuery();
+                if (resultado2.next()) {
+                    Dias = resultado2.getInt("Tiempo");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No hay un tiempo estipulado");
+                    Dias = 0;
+                }
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e);
+        }
+        return Dias;
+    }
+
+    public boolean ComprobarFecha(String Fecha) {
+        boolean comprobar = false;
+        try {
+            boolean regreso = false;
+            int Guion[] = new int[2];
+            int x = 0;
+            for (int i = 0; i < Fecha.length(); i++) {
+                int j = i + 1;
+                if ("-".equals(Fecha.substring(i, j))) {
+                    Guion[x] = i;
+                    x++;
+                }
+            }
+            int Año = Integer.parseInt(Fecha.substring(0, Guion[0]));
+            int Mes = Integer.parseInt(Fecha.substring(Guion[0] + 1, Guion[1]));
+            int Dia = Integer.parseInt(Fecha.substring(Guion[1] + 1, Fecha.length()));
+            FechaIngresada = new java.sql.Date(Año - 1900, Mes - 1, Dia);
+            FechaIngresada1 = Fecha;
+            comprobar = true;
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Fecha Erronea");
+            comprobar = false;
+        }
+        return comprobar;
+    }
+
+    public boolean EncontrarDias(String Fecha, int dias) {
+        boolean regreso = false;
+        int Guion[] = new int[2];
+        int x = 0;
+        for (int i = 0; i < Fecha.length(); i++) {
+            int j = i + 1;
+            if ("-".equals(Fecha.substring(i, j))) {
+                Guion[x] = i;
+                x++;
+            }
+        }
+        int Año = Integer.parseInt(Fecha.substring(0, Guion[0]));
+        int Mes = Integer.parseInt(Fecha.substring(Guion[0] + 1, Guion[1]));
+        int Dia = Integer.parseInt(Fecha.substring(Guion[1] + 1, Fecha.length()));
+        java.sql.Date FechaInicial = new java.sql.Date(Año - 1900, Mes - 1, Dia);
+
+        Dia = Dia + dias;
+        if (Dia > 30) {
+            Dia = Dia - 30;
+            Mes++;
+            if (Mes > 12) {
+                Mes = 1;
+                Año++;
+            }
+        }
+        java.sql.Date FechaPrevista = new java.sql.Date(Año - 1900, Mes - 1, Dia);
+        if (FechaIngresada.before(FechaInicial)) {
+            JOptionPane.showMessageDialog(null, "La fecha ingresada es anterior a la del pedido");
+            regreso = false;
+        } else {
+            if (FechaIngresada.after(FechaPrevista)) {
+                Texto1.setText("Atrasado");
+                regreso = true;
+            } else {
+                int Año1 = Integer.parseInt(FechaIngresada1.substring(0, Guion[0]));
+                int Mes1 = Integer.parseInt(FechaIngresada1.substring(Guion[0] + 1, Guion[1]));
+                int Dia1 = Integer.parseInt(FechaIngresada1.substring(Guion[1] + 1, Fecha.length()));
+
+                int DiasRestantes = 0;
+                if (Dia1 > Dia) {
+                    DiasRestantes = Dia - Dia1;
+                    DiasRestantes = 30 + DiasRestantes;
+                } else {
+                    DiasRestantes = Dia - Dia1;
+                }
+
+                if (DiasRestantes == 0) {
+                    Texto1.setText("En Tienda");
+                } else {
+                    Texto1.setText(String.valueOf(DiasRestantes));
+                }
+                regreso = true;
+            }
+        }
+        return regreso;
+    }
+
+    public void ObtenerProducto() {
+        try {
+            String Query = "SELECT Producto.Nombre FROM Pedido INNER JOIN Producto ON Pedido.Codigo_Producto = Producto.Codigo and ID_Pedido = ? LIMIT 1";
+            PreparedStatement PrSt;
+            ResultSet Rs;
+            PrSt = conexion.prepareStatement(Query);
+            PrSt.setInt(1, ID_Pedido);
+            Rs = PrSt.executeQuery();
+            if (Rs.next()) {
+                Texto2.setText(Rs.getString("Nombre"));
+            }
+            PrSt.close();
+            Rs.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e);
+        }
+    }
+
+    public String ObtenerTienda(String CodigoTienda) {
+        String NombreTienda = null;
+        try {
+            String Query = "SELECT * FROM Tienda WHERE Codigo = ?";
+            PreparedStatement PrSt;
+            ResultSet Rs;
+            PrSt = conexion.prepareStatement(Query);
+            PrSt.setString(1, CodigoTienda);
+            Rs = PrSt.executeQuery();
+            if (Rs.next()) {
+                NombreTienda = Rs.getString("Nombre");
+            }
+            PrSt.close();
+            Rs.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e);
+        }
+
+        return NombreTienda;
+
+    }
+
     public void Ejecutar() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -241,7 +430,7 @@ public class Rastreo_Producto extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Rastreo_Producto().setVisible(true);
+                new Rastreo_Producto(conexion).setVisible(true);
             }
         });
     }
