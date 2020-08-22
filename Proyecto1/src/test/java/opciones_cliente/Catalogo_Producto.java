@@ -54,7 +54,7 @@ public class Catalogo_Producto extends javax.swing.JFrame {
 
         Titulo.setEditable(false);
         Titulo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Titulo.setText("Informacion sobre los productos");
+        Titulo.setText("Productos de la empresa");
 
         TextoNombre.setEditable(false);
         TextoNombre.setForeground(new java.awt.Color(14, 7, 7));

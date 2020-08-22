@@ -133,7 +133,7 @@
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Informacion sobre los productos"/>
+        <Property name="text" type="java.lang.String" value="Productos de la empresa"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="TextoNombre">
