@@ -18,6 +18,7 @@ public class Datos_Tienda extends javax.swing.JFrame {
     public Datos_Tienda(Connection conexion) {
         initComponents();
         this.conexion = conexion;
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")

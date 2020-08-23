@@ -23,6 +23,7 @@ public class Reporte extends javax.swing.JFrame {
         initComponents();
         this.conexion = conexion;
         this.TiendaActual = TiendaActual;
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")

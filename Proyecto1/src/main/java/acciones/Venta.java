@@ -33,6 +33,7 @@ public class Venta extends javax.swing.JFrame {
         this.conexion = conexion;
         this.Codigo_Tienda = Codigo_Tienda;
         Texto2.setText(this.Codigo_Tienda);
+        this.setLocationRelativeTo(null);
 
         try {
 

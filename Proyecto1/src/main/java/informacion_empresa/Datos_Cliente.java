@@ -20,6 +20,7 @@ public class Datos_Cliente extends javax.swing.JFrame {
     public Datos_Cliente(Connection conexion) {
         initComponents();
         this.conexion = conexion;
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")

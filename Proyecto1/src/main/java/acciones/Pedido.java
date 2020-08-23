@@ -36,16 +36,18 @@ public class Pedido extends javax.swing.JFrame {
         this.conexion = conexion;
         this.Codigo_Tienda = Codigo_Tienda;
         Texto3.setText(Codigo_Tienda);
+        this.setLocationRelativeTo(null);
 
         try {
             DefaultTableModel modelo = new DefaultTableModel();
             Tabla2.setModel(modelo);
             PreparedStatement PrSt;
             ResultSet resultado = null;
-            String ComandoSQL = "SELECT * FROM Producto WHERE Codigo_Tienda != ?";
+            String ComandoSQL = "SELECT * FROM Producto WHERE Codigo_Tienda != ? and Codigo NOT IN (select Codigo from Producto where Codigo_Tienda = ?)";
 
             PrSt = conexion.prepareStatement(ComandoSQL);
             PrSt.setString(1, Codigo_Tienda);
+            PrSt.setString(2, Codigo_Tienda);
             resultado = PrSt.executeQuery();
 
             ResultSetMetaData result = resultado.getMetaData();

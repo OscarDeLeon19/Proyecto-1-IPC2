@@ -16,6 +16,7 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")
@@ -34,6 +35,7 @@ public class Principal extends javax.swing.JFrame {
         Texto3 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Ventana Principal");
 
         jTextField1.setEditable(false);
         jTextField1.setText("Bienvenido al sistema de base de datos de Intelaf. Esta es la aplicacion para trabajadores");
@@ -142,7 +144,6 @@ public class Principal extends javax.swing.JFrame {
     private void BotonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIniciarActionPerformed
         Trabajador trabajador = new Trabajador(conexion);
         trabajador.Ejecutar();
-        dispose();
     }//GEN-LAST:event_BotonIniciarActionPerformed
     /**
      * Obtiene los valores de la direccion, usuario y contraseña para poder conectar la base de datos

@@ -17,6 +17,7 @@ public class Datos_Empleado extends javax.swing.JFrame {
     public Datos_Empleado(Connection conexion) {
         initComponents();
         this.conexion = conexion;
+        this.setLocationRelativeTo(null);
     }
 
     @SuppressWarnings("unchecked")

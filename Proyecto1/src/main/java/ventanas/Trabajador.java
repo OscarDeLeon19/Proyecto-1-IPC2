@@ -33,7 +33,7 @@ public class Trabajador extends javax.swing.JFrame {
         BotonComprobar = new javax.swing.JButton();
         BotonIniciar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Principal");
 
         BotonCargar.setText("Cargar Archivos");

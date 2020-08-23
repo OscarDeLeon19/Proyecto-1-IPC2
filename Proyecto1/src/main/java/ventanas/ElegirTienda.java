@@ -24,6 +24,7 @@ public class ElegirTienda extends javax.swing.JFrame {
     public ElegirTienda(Connection conexion) {
         initComponents();
         this.conexion = conexion;
+        this.setLocationRelativeTo(null);
 
         try {
 

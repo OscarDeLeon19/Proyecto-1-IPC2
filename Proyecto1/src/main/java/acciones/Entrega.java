@@ -41,6 +41,7 @@ public class Entrega extends javax.swing.JFrame {
         initComponents();
         this.conexion = conexion;
         this.Codigo_Tienda = Codigo_Tienda;
+        this.setLocationRelativeTo(null);
 
     }
 
