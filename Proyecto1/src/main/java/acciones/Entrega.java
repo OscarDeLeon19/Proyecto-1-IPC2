@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import principal.Conexion;
 
 public class Entrega extends javax.swing.JFrame {
 
@@ -26,16 +25,18 @@ public class Entrega extends javax.swing.JFrame {
     private String EstadoPedido;
     private String FechaIngresoDePedido;
 
-    private String FechaDeEntrega;
     private String FechaDeLlegada;
-    private double CreditoCliente;
-    private int Existencias;
-    private double PrecioExistencias;
 
     java.sql.Date FechaPrevista;
     java.sql.Date FechaIngresada;
     java.sql.Date FechaEntrada;
 
+    /**
+     * Inicializa un Objeto de tipo entrega
+     *
+     * @param conexion La conexion con la base de datos
+     * @param Codigo_Tienda El codigo de la tienda en la que estamos
+     */
     public Entrega(Connection conexion, String Codigo_Tienda) {
         initComponents();
         this.conexion = conexion;
@@ -337,7 +338,9 @@ public class Entrega extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Limpia las cajas de texto de la interfaz
+     */
     public void Limpiar() {
         Texto1.setText(null);
         Texto2.setText(null);
@@ -353,10 +356,21 @@ public class Entrega extends javax.swing.JFrame {
         EstadoPedido = null;
         FechaIngresoDePedido = null;
     }
+
+    /**
+     * LLama ak metodo para limpiar
+     *
+     * @param evt
+     */
     private void BotonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonLimpiarActionPerformed
         Limpiar();
     }//GEN-LAST:event_BotonLimpiarActionPerformed
-
+    /**
+     * Obtiene los datos de la fila seleccionada y los guarda en las cajas de
+     * texto
+     *
+     * @param evt
+     */
     private void Tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla1MouseClicked
 
         try {
@@ -387,11 +401,14 @@ public class Entrega extends javax.swing.JFrame {
             PrSt.close();
             resultado.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_Tabla1MouseClicked
 
-
+    /**
+     * Lista todos los pedidos de la tienda que estan pendiendes de ingresar
+     * @param evt 
+     */
     private void BotonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListarActionPerformed
         BotonIngresarPedido.setEnabled(true);
         BotonEntregarPedido.setEnabled(false);
@@ -438,7 +455,10 @@ public class Entrega extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_BotonListarActionPerformed
-
+    /**
+     * Habilita el boton para ingresar un pedido
+     * @param evt 
+     */
     private void BotonPedidoListoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonPedidoListoActionPerformed
         BotonIngresarPedido.setEnabled(false);
         BotonEntregarPedido.setEnabled(true);
@@ -446,7 +466,10 @@ public class Entrega extends javax.swing.JFrame {
         ActualizarDatos();
 
     }//GEN-LAST:event_BotonPedidoListoActionPerformed
-
+    /**
+     * Lista todos los pedidos que estan finalizados y entregados al cliente
+     * @param evt 
+     */
     private void BotonPedidoFinalizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonPedidoFinalizadoActionPerformed
         BotonIngresarPedido.setEnabled(false);
         BotonEntregarPedido.setEnabled(false);
@@ -489,10 +512,14 @@ public class Entrega extends javax.swing.JFrame {
             PrSt.close();
             resultado.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonPedidoFinalizadoActionPerformed
-
+    /**
+     * Ingresa un pedido que ha llegado a la tienda.
+     * El programa determina si el pedido llego a tiempo o esta atrasado
+     * @param evt 
+     */
     private void BotonIngresarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIngresarPedidoActionPerformed
         try {
             FechaDeLlegada = JOptionPane.showInputDialog(null, "Ingresa la Fecha de llegada (AAAA-MM-DD)");
@@ -524,11 +551,16 @@ public class Entrega extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
 
     }//GEN-LAST:event_BotonIngresarPedidoActionPerformed
-
+    /**
+     * Entrega un pedido al cliente, lo marca como finalizado.
+     * Ingresa la venta correspondiente
+     * Y comprueba si al cliente se le atribuye un credito, y si es asi, se lo ingresa.
+     * @param evt 
+     */
     private void BotonEntregarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEntregarPedidoActionPerformed
         try {
             String Credito1;
@@ -609,10 +641,13 @@ public class Entrega extends javax.swing.JFrame {
             }
             PreSt.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonEntregarPedidoActionPerformed
-    public void ActualizarDatos() {
+    /**
+     * Actualiza columna de pedidos ingresados 
+     */
+    private void ActualizarDatos() {
         try {
             DefaultTableModel modelo = new DefaultTableModel();
             Tabla1.setModel(modelo);
@@ -651,11 +686,14 @@ public class Entrega extends javax.swing.JFrame {
             }
             PrSt.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }
-
-    public void ObtenerDatos() {
+    /**
+     * Comprueba el tiempo entre las dos tiendas en las que se realizo el pedido
+     * Manda esos dias al metodo de SumarDias
+     */
+    private void ObtenerDatos() {
         try {
             String Credito1;
             CodigoPedido = Texto1.getText();
@@ -701,11 +739,15 @@ public class Entrega extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }
-
-    public void SumarDias(int dias) {
+    /**
+     * Suma los dias estipulados en el tiempo entre tiendas y genera la fecha prevista de entrega del pedido
+     * Indica si el pedido llego con retraso o a tiempo.
+     * @param dias 
+     */
+    private void SumarDias(int dias) {
         int Guion[] = new int[2];
         int x = 0;
         for (int i = 0; i < Fecha.length(); i++) {
@@ -743,8 +785,11 @@ public class Entrega extends javax.swing.JFrame {
             }
         }
     }
-
-    public void IngresarPedido(String Estado) {
+    /**
+     * Ingresa un pedido llegado a la tienda
+     * @param Estado Muestra si el pedido llego atrasado o a tiempo
+     */
+    private void IngresarPedido(String Estado) {
 
         try {
             PreparedStatement PrSt;
@@ -796,10 +841,12 @@ public class Entrega extends javax.swing.JFrame {
             }
             PrSt.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }
-
+    /**
+     * Ejecuta la Tienda
+     */
     public void Ejecutar() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

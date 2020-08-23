@@ -6,12 +6,14 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import principal.Conexion;
 
 public class Datos_Empleado extends javax.swing.JFrame {
 
     private Connection conexion;
-
+    /**
+     * Inicia un objeto de tipo Datos_Empleado
+     * @param conexion Conexion con la base de datos
+     */
     public Datos_Empleado(Connection conexion) {
         initComponents();
         this.conexion = conexion;
@@ -263,7 +265,10 @@ public class Datos_Empleado extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Lista Todos los empleados que estan en la base de datos
+     * @param evt 
+     */
     private void BotonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListarActionPerformed
         try {
 
@@ -298,10 +303,13 @@ public class Datos_Empleado extends javax.swing.JFrame {
             PrSt.close();
             resultado.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonListarActionPerformed
-
+    /**
+     * Lista todos los empleados filtrados por el codigo escrito
+     * @param evt 
+     */
     private void BotonListarCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListarCodigoActionPerformed
         try {
             String Codigo = Texto1.getText();
@@ -337,10 +345,13 @@ public class Datos_Empleado extends javax.swing.JFrame {
             PrSt.close();
             resultado.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonListarCodigoActionPerformed
-
+    /**
+     * Lista todos los empleados filtrados por el nombre escrito
+     * @param evt 
+     */
     private void BotonListarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListarNombreActionPerformed
         try {
             String Nombre = Texto2.getText();
@@ -376,10 +387,13 @@ public class Datos_Empleado extends javax.swing.JFrame {
             PrSt.close();
             resultado.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonListarNombreActionPerformed
-
+    /**
+     * Agrega los datos de una fila seleccionada a los cuadros de texto
+     * @param evt 
+     */
     private void Tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla1MouseClicked
 
         try {
@@ -403,10 +417,13 @@ public class Datos_Empleado extends javax.swing.JFrame {
             PrSt.close();
             resultado.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_Tabla1MouseClicked
-
+    /**
+     * Ingresa un nuevo Empleado a la base de datos
+     * @param evt 
+     */
     private void BotonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIngresarActionPerformed
         
         String Codigo_Empleado = Texto1.getText();
@@ -454,11 +471,20 @@ public class Datos_Empleado extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Informacion Ingresada");
             PrSt.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonIngresarActionPerformed
-
+    /**
+     * Llama al metodo para limpiar
+     * @param evt 
+     */
     private void BotonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonLimpiarActionPerformed
+        Limpiar();
+    }//GEN-LAST:event_BotonLimpiarActionPerformed
+    /**
+     * Limpia los cuadros de texto de la interfaz
+     */
+    public void Limpiar() {
         Texto1.setText(null);
         Texto2.setText(null);
         Texto3.setText(null);
@@ -466,8 +492,12 @@ public class Datos_Empleado extends javax.swing.JFrame {
         Texto5.setText(null);
         Texto6.setText(null);
         Texto7.setText(null);
-    }//GEN-LAST:event_BotonLimpiarActionPerformed
-
+    }
+    
+    /**
+     * Modifica los datos de un empleado
+     * @param evt 
+     */
     private void BotonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonModificarActionPerformed
         
         String Codigo_Empleado = Texto1.getText();
@@ -514,22 +544,19 @@ public class Datos_Empleado extends javax.swing.JFrame {
             int resultado = PrSt.executeUpdate();
             if (resultado > 0) {
                 JOptionPane.showMessageDialog(null, "Informacion Modificada");
-                Texto1.setText(null);
-                Texto2.setText(null);
-                Texto3.setText(null);
-                Texto4.setText(null);
-                Texto5.setText(null);
-                Texto6.setText(null);
-                Texto7.setText(null);
+                Limpiar();
             } else {
                 JOptionPane.showMessageDialog(null, "Fallo al modificar");
             }
             PrSt.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonModificarActionPerformed
-
+    /**
+     * Elimina los datos de un empleado
+     * @param evt 
+     */
     private void BotonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarActionPerformed
         
         try {
@@ -542,22 +569,18 @@ public class Datos_Empleado extends javax.swing.JFrame {
             int resultado = PrSt.executeUpdate();
             if (resultado > 0) {
                 JOptionPane.showMessageDialog(null, "Informacion Eliminada");
-                Texto1.setText(null);
-                Texto2.setText(null);
-                Texto3.setText(null);
-                Texto4.setText(null);
-                Texto5.setText(null);
-                Texto6.setText(null);
-                Texto7.setText(null);
+                Limpiar();
             } else {
                 JOptionPane.showMessageDialog(null, "Fallo al Eliminar");
             }
             PrSt.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonEliminarActionPerformed
-
+    /**
+     * Ejecuta la ventana
+     */
     public void Ejecutar() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

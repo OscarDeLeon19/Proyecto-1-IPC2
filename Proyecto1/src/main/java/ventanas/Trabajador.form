@@ -29,7 +29,7 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="BotonIniciar" max="32767" attributes="0"/>
                   <Component id="BotonComprobar" alignment="0" max="32767" attributes="0"/>
-                  <Component id="Boton1" alignment="0" pref="267" max="32767" attributes="0"/>
+                  <Component id="BotonCargar" alignment="0" pref="267" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -41,7 +41,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="BotonComprobar" min="-2" pref="61" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="Boton1" min="-2" pref="61" max="-2" attributes="0"/>
+              <Component id="BotonCargar" min="-2" pref="61" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="BotonIniciar" min="-2" pref="61" max="-2" attributes="0"/>
               <EmptySpace pref="45" max="32767" attributes="0"/>
@@ -50,12 +50,13 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="Boton1">
+    <Component class="javax.swing.JButton" name="BotonCargar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cargar Archivos"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Boton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonCargarActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BotonComprobar">
@@ -69,6 +70,7 @@
     <Component class="javax.swing.JButton" name="BotonIniciar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Iniciar "/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonIniciarActionPerformed"/>

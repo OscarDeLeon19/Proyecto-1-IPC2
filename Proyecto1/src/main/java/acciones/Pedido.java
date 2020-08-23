@@ -1,15 +1,12 @@
 package acciones;
 
-import informacion_empresa.*;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import principal.Conexion;
 
 public class Pedido extends javax.swing.JFrame {
 
@@ -28,7 +25,12 @@ public class Pedido extends javax.swing.JFrame {
     private double CreditoCliente;
     private int Existencias;
     private double PrecioExistencias;
-
+    /**
+     * Crea un objeto de tipo Pedido
+     * Agrega los productos en las otras tiendas para facilitar la realizacion de un pedido.
+     * @param conexion La conexion con la base de datos
+     * @param Codigo_Tienda El codigo de la Tienda en donde estamos
+     */
     public Pedido(Connection conexion, String Codigo_Tienda) {
         initComponents();
         this.conexion = conexion;
@@ -70,7 +72,7 @@ public class Pedido extends javax.swing.JFrame {
             PrSt.close();
             resultado.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }
 
@@ -241,12 +243,6 @@ public class Pedido extends javax.swing.JFrame {
         TextoCredito.setEditable(false);
         TextoCredito.setText("Credito");
 
-        Texto10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Texto10ActionPerformed(evt);
-            }
-        });
-
         TextoCredito1.setEditable(false);
         TextoCredito1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         TextoCredito1.setText("Productos de otras tiendas");
@@ -414,7 +410,10 @@ public class Pedido extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Limpia las cajas de texto de la interfaz
+     * @param evt 
+     */
     private void BotonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonLimpiarActionPerformed
         Texto1.setText(null);
         Texto2.setText(null);
@@ -427,7 +426,10 @@ public class Pedido extends javax.swing.JFrame {
         Texto10.setText(null);
         Texto11.setText(null);
     }//GEN-LAST:event_BotonLimpiarActionPerformed
-
+    /**
+     * Elimina un pedido de la base de datos 
+     * @param evt 
+     */
     private void BotonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarActionPerformed
 
         try {
@@ -445,10 +447,13 @@ public class Pedido extends javax.swing.JFrame {
             }
             PrSt.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonEliminarActionPerformed
-
+    /**
+     * Obtiene el codigo y el codigo de la tienda de el producto para guardarlo en las cajas de texto
+     * @param evt 
+     */
     private void Tabla2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla2MouseClicked
 
         try {
@@ -469,10 +474,13 @@ public class Pedido extends javax.swing.JFrame {
             PrSt.close();
             resultado.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_Tabla2MouseClicked
-
+    /**
+     * Obtiene el ID de el pedido para realizar acciones
+     * @param evt 
+     */
     private void Tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla1MouseClicked
 
         try {
@@ -492,10 +500,13 @@ public class Pedido extends javax.swing.JFrame {
             PrSt.close();
             resultado.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_Tabla1MouseClicked
-
+    /**
+     * Lista todos los pedidos realizados que no se han ingresado a la tienda
+     * @param evt 
+     */
     private void BotonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListarActionPerformed
         try {
             DefaultTableModel modelo = new DefaultTableModel();
@@ -535,10 +546,17 @@ public class Pedido extends javax.swing.JFrame {
             PrSt.close();
             resultado.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonListarActionPerformed
-
+    /**
+     * Ingresa un nuevo pedido
+     * Comprueba que todos los datos de la caja de texto sean correctos
+     * Obtiene el credito de el cliente por si se desea utilizarlo
+     * Muestra el total a pagar de los productos pedidos
+     * Muestra el anticipo minimo a ingresar
+     * @param evt 
+     */
     private void BotonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIngresarActionPerformed
         boolean comprobacion = true;
 
@@ -614,7 +632,11 @@ public class Pedido extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonIngresarActionPerformed
-
+    /**
+     * Obtiene el anticipo y suma el credito que usa el cliente.
+     * Comprueba que esta suma no sea mayor al total
+     * @param evt 
+     */
     private void BotonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAgregarActionPerformed
         try {
             double AnticipoMinimo = Total * 0.25;
@@ -635,11 +657,16 @@ public class Pedido extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "El Anticipo es menor del 25%");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
 
     }//GEN-LAST:event_BotonAgregarActionPerformed
-
+    /**
+     * Finaliza de comprobar los datos e ingresa el pedido a la base de datos
+     * Descuenta los productos pedidos a los de la existencia
+     * Descuenta el credito utilizado por el cliente.
+     * @param evt 
+     */
     private void BotonFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonFinalizarActionPerformed
         try {
             PreparedStatement PrSt;
@@ -731,14 +758,12 @@ public class Pedido extends javax.swing.JFrame {
             PrSt.close();
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonFinalizarActionPerformed
-
-    private void Texto10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Texto10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Texto10ActionPerformed
-
+    /**
+     * Ejecuta la ventana
+     */
     public void Ejecutar() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

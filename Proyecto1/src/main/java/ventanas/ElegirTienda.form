@@ -38,7 +38,7 @@
                               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                               <Component id="jTextField1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="TextoContraseña" max="32767" attributes="0"/>
+                              <Component id="TextoCodigo" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
@@ -61,7 +61,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jTextField1" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
-                  <Component id="TextoContraseña" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                  <Component id="TextoCodigo" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="BotonIngresar" min="-2" pref="48" max="-2" attributes="0"/>
@@ -97,13 +97,7 @@
         <Property name="text" type="java.lang.String" value="Ingresa el codigo de la tienda:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="TextoContrase&#xf1;a">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="ABC-1"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TextoContrase&#xf1;aActionPerformed"/>
-      </Events>
+    <Component class="javax.swing.JTextField" name="TextoCodigo">
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField3">
       <Properties>

@@ -13,7 +13,10 @@ public class Datos_Cliente extends javax.swing.JFrame {
 
     private Conexion ClaseConexion;
     private Connection conexion;
-
+    /**
+     * Inicia un objeto de tipo Datos_Cliente
+     * @param conexion La conexion con la base de datos
+     */
     public Datos_Cliente(Connection conexion) {
         initComponents();
         this.conexion = conexion;
@@ -265,7 +268,10 @@ public class Datos_Cliente extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Lista todos los clientes que estan en la base de datos y los agrega a la tabla
+     * @param evt 
+     */
     private void BotonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListarActionPerformed
         try {
 
@@ -300,10 +306,13 @@ public class Datos_Cliente extends javax.swing.JFrame {
             resultado.close();
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonListarActionPerformed
-
+    /**
+     * Lista los clientes de la base de datos ordenados por el nombre
+     * @param evt 
+     */
     private void BotonListarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListarNombreActionPerformed
         try {
             String Nombre = Texto1.getText();
@@ -339,10 +348,13 @@ public class Datos_Cliente extends javax.swing.JFrame {
             PrSt.close();
             resultado.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonListarNombreActionPerformed
-
+    /**
+     * Lista todos los clientes de la base de datos ordenados por el NIT
+     * @param evt 
+     */
     private void BotonListarNITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListarNITActionPerformed
         try {
             String NIT = Texto3.getText();
@@ -378,10 +390,13 @@ public class Datos_Cliente extends javax.swing.JFrame {
             PrSt.close();
             resultado.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonListarNITActionPerformed
-
+    /**
+     * Evento de la tabla que agreaga los datos de una fila a los cuadros de texto
+     * @param evt 
+     */
     private void Tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla1MouseClicked
 
         try {
@@ -406,10 +421,13 @@ public class Datos_Cliente extends javax.swing.JFrame {
             PrSt.close();
             result.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_Tabla1MouseClicked
-
+    /**
+     * Metodo para ingresar un nuevo cliente a la base de datos
+     * @param evt 
+     */
     private void BotonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIngresarActionPerformed
         PreparedStatement PrSt;
 
@@ -458,11 +476,20 @@ public class Datos_Cliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Informacion Ingresada");
             PrSt.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonIngresarActionPerformed
-
+    /**
+     * Llama al metodo para limpiar
+     * @param evt 
+     */
     private void BotonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonLimpiarActionPerformed
+        Limpiar();
+    }//GEN-LAST:event_BotonLimpiarActionPerformed
+    /**
+     * Limpia los cuadros de texto de la interfaz
+     */
+    public void Limpiar() {
         Texto1.setText(null);
         Texto2.setText(null);
         Texto3.setText(null);
@@ -470,8 +497,11 @@ public class Datos_Cliente extends javax.swing.JFrame {
         Texto5.setText(null);
         Texto6.setText(null);
         Texto7.setText(null);
-    }//GEN-LAST:event_BotonLimpiarActionPerformed
-
+    }
+    /**
+     * Modifica los datos de un cliente
+     * @param evt 
+     */
     private void BotonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonModificarActionPerformed
 
         String Nombre = Texto1.getText();
@@ -518,22 +548,19 @@ public class Datos_Cliente extends javax.swing.JFrame {
             int resultado = PrSt.executeUpdate();
             if (resultado > 0) {
                 JOptionPane.showMessageDialog(null, "Informacion Modificada");
-                Texto1.setText(null);
-                Texto2.setText(null);
-                Texto3.setText(null);
-                Texto4.setText(null);
-                Texto5.setText(null);
-                Texto6.setText(null);
-                Texto7.setText(null);
+                Limpiar();
             } else {
                 JOptionPane.showMessageDialog(null, "Fallo al modificar");
             }
             PrSt.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonModificarActionPerformed
-
+    /**
+     * Elimina los datos de un cliente
+     * @param evt 
+     */
     private void BotonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarActionPerformed
 
         try {
@@ -546,22 +573,18 @@ public class Datos_Cliente extends javax.swing.JFrame {
             int resultado = PrSt.executeUpdate();
             if (resultado > 0) {
                 JOptionPane.showMessageDialog(null, "Informacion Eliminada");
-                Texto1.setText(null);
-                Texto2.setText(null);
-                Texto3.setText(null);
-                Texto4.setText(null);
-                Texto5.setText(null);
-                Texto6.setText(null);
-                Texto7.setText(null);
+                Limpiar();
             } else {
                 JOptionPane.showMessageDialog(null, "Fallo al Eliminar");
             }
             PrSt.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonEliminarActionPerformed
-
+    /**
+     * Ejecuta la ventana
+     */
     public void Ejecutar() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

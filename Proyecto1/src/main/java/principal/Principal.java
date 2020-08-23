@@ -10,7 +10,10 @@ public class Principal extends javax.swing.JFrame {
     public static String PASSWORD;
     private Connection conexion;
     private Conexion ClaseConexion;
-
+    /**
+     * Constructor de la clase Principal
+     * 
+     */
     public Principal() {
         initComponents();
     }
@@ -34,11 +37,6 @@ public class Principal extends javax.swing.JFrame {
 
         jTextField1.setEditable(false);
         jTextField1.setText("Bienvenido al sistema de base de datos de Intelaf. Esta es la aplicacion para trabajadores");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
 
         BotonIniciar.setText("Iniciar Aplicacion");
         BotonIniciar.setEnabled(false);
@@ -57,11 +55,6 @@ public class Principal extends javax.swing.JFrame {
 
         jTextField3.setEditable(false);
         jTextField3.setText("Ingresa los datos de la base de datos");
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
 
         jTextField4.setText("URL");
 
@@ -141,17 +134,20 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
+    
+    /**
+     * Evento del boton que inicia la aplicacion
+     * @param evt 
+     */
     private void BotonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIniciarActionPerformed
         Trabajador trabajador = new Trabajador(conexion);
         trabajador.Ejecutar();
         dispose();
     }//GEN-LAST:event_BotonIniciarActionPerformed
-
+    /**
+     * Obtiene los valores de la direccion, usuario y contraseña para poder conectar la base de datos
+     * @param evt 
+     */
     private void BotonConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonConectarActionPerformed
 
         URL = Texto1.getText();
@@ -168,11 +164,8 @@ public class Principal extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_BotonConectarActionPerformed
-
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
-
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

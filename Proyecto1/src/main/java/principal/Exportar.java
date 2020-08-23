@@ -3,7 +3,6 @@ package principal;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -12,11 +11,16 @@ import javax.swing.JOptionPane;
 public class Exportar {
     
     private String TextoExportar;
-
+    /**
+     * Constructor de la clase Exportar
+     * @param TextoExportar El texto que se va a exportar al archivo HTML
+     */
     public Exportar(String TextoExportar) {
         this.TextoExportar = TextoExportar;
     }
-    
+    /**
+     * Metodo que exporta el texto recibido a un archuvo HTML
+     */
     public void ExportarReporte(){
          try {
             FileWriter escribir;

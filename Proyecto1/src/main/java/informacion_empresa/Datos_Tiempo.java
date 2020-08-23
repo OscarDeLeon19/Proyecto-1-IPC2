@@ -6,13 +6,17 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import principal.Conexion;
 
 public class Datos_Tiempo extends javax.swing.JFrame {
 
     private Connection conexion;
     private String Codigo_Tienda;
-
+    /**
+     * Inicializa un objeto de tipo Datos_Tiempo
+     * Agrega los datos de todas las tiendas a la tabla
+     * @param conexion conexion de la base de datos 
+     * @param Codigo_Tienda Codigo de la tienda en la que estamos trabajando
+     */
     public Datos_Tiempo(Connection conexion, String Codigo_Tienda) {
         initComponents();
         this.conexion = conexion;
@@ -52,7 +56,7 @@ public class Datos_Tiempo extends javax.swing.JFrame {
             ps.close();
             res.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }
 
@@ -277,7 +281,10 @@ public class Datos_Tiempo extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Lista todos los tiempos de las tiendas
+     * @param evt 
+     */
     private void BotonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListarActionPerformed
         Texto1.setText(Codigo_Tienda);
         Texto2.setText(null);
@@ -315,17 +322,21 @@ public class Datos_Tiempo extends javax.swing.JFrame {
             PrSt.close();
             resultado.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonListarActionPerformed
-
+    /**
+     * Ingresa un nuevo tiempo entre tiendas.
+     * Comprueba que estas tiendas no tengan un tiempo ya ingresado
+     * @param evt 
+     */
     private void BotonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIngresarActionPerformed
         boolean comprobacion = false;
 
         Texto8.setText(null);
         String Codigo1 = Texto1.getText();
         String Codigo2 = Texto2.getText();
-        String Tiempo = Texto3.getText();
+        String TiempoT = Texto3.getText();
 
         if ("".equals(Codigo1)) {
             Codigo1 = null;
@@ -333,64 +344,77 @@ public class Datos_Tiempo extends javax.swing.JFrame {
         if ("".equals(Codigo2)) {
             Codigo2 = null;
         }
-        if ("".equals(Tiempo)) {
-            Tiempo = null;
+        if ("".equals(TiempoT)) {
+            TiempoT = null;
         }
+
         try {
-            PreparedStatement PrSt;
-            PreparedStatement Q1;
-            PreparedStatement Q2;
-            ResultSet RS;
-            String Query = "SELECT * FROM Tiempo WHERE Codigo_Tienda1 = ? AND Codigo_Tienda2 = ?";
+            int Tiempo = Integer.parseInt(TiempoT);
+            if (Tiempo <= 30 && Tiempo > 0) {
+                PreparedStatement PrSt;
+                PreparedStatement Q1;
+                PreparedStatement Q2;
+                ResultSet RS;
+                String Query = "SELECT * FROM Tiempo WHERE Codigo_Tienda1 = ? AND Codigo_Tienda2 = ?";
 
-            Q1 = conexion.prepareStatement(Query);
-            Q1.setString(1, Codigo1);
-            Q1.setString(2, Codigo2);
-            RS = Q1.executeQuery();
-            if (RS.next()) {
-                comprobacion = true;
-            }
+                Q1 = conexion.prepareStatement(Query);
+                Q1.setString(1, Codigo1);
+                Q1.setString(2, Codigo2);
+                RS = Q1.executeQuery();
+                if (RS.next()) {
+                    comprobacion = true;
+                }
 
-            Q2 = conexion.prepareStatement(Query);
-            Q2.setString(1, Codigo2);
-            Q2.setString(2, Codigo1);
-            RS = Q2.executeQuery();
-            if (RS.next()) {
-                comprobacion = true;
-            }
+                Q2 = conexion.prepareStatement(Query);
+                Q2.setString(1, Codigo2);
+                Q2.setString(2, Codigo1);
+                RS = Q2.executeQuery();
+                if (RS.next()) {
+                    comprobacion = true;
+                }
 
-            if (comprobacion == false) {
-                String SQLQuery = "INSERT INTO Tiempo (Codigo_Tienda1, Codigo_Tienda2, Tiempo) VALUES(?,?,?)";
-                PrSt = conexion.prepareStatement(SQLQuery);
-                PrSt.setString(1, Codigo1);
-                PrSt.setString(2, Codigo2);
-                PrSt.setString(3, Tiempo);
+                if (comprobacion == false) {
+                    String SQLQuery = "INSERT INTO Tiempo (Codigo_Tienda1, Codigo_Tienda2, Tiempo) VALUES(?,?,?)";
+                    PrSt = conexion.prepareStatement(SQLQuery);
+                    PrSt.setString(1, Codigo1);
+                    PrSt.setString(2, Codigo2);
+                    PrSt.setInt(3, Tiempo);
 
-                int resultado = PrSt.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Informacion Ingresada");
-                PrSt.close();
+                    int resultado = PrSt.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Informacion Ingresada");
+                    PrSt.close();
+                } else {
+                    JOptionPane.showMessageDialog(null, "El tiempo entre esas tientas ya esta establecido");
+                }
+                Q1.close();
+                Q2.close();
+                RS.close();
             } else {
-                JOptionPane.showMessageDialog(null, "El tiempo entre esas tientas ya esta establecido");
+                JOptionPane.showMessageDialog(null, "El tiempo no puede superar los 30 dias ");
             }
-            Q1.close();
-            Q2.close();
-            RS.close();
+
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonIngresarActionPerformed
-
+    /**
+     * Limpia los cuadros de texto 
+     * @param evt 
+     */
     private void BotonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonLimpiarActionPerformed
         Texto1.setText(null);
         Texto2.setText(null);
         Texto3.setText(null);
         Texto8.setText(null);
     }//GEN-LAST:event_BotonLimpiarActionPerformed
-
+    /**
+     * Modifica el tiempo entre tiendas
+     * @param evt 
+     */
     private void BotonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonModificarActionPerformed
         String Codigo1 = Texto1.getText();
         String Codigo2 = Texto2.getText();
-        String Tiempo = Texto3.getText();
+        String TiempoT = Texto3.getText();
 
         if ("".equals(Codigo1)) {
             Codigo1 = null;
@@ -398,33 +422,41 @@ public class Datos_Tiempo extends javax.swing.JFrame {
         if ("".equals(Codigo2)) {
             Codigo2 = null;
         }
-        if ("".equals(Tiempo)) {
-            Tiempo = null;
+        if ("".equals(TiempoT)) {
+            TiempoT = null;
         }
 
         try {
-            PreparedStatement PrSt;
-            String SQLQuery = "UPDATE Tiempo SET Tiempo =? WHERE ID_Tiempo =?";
-            PrSt = conexion.prepareStatement(SQLQuery);
-            PrSt.setString(1, Tiempo);
-            PrSt.setString(2, Texto8.getText());
+            int Tiempo = Integer.parseInt(TiempoT);
+            if (Tiempo <= 30 && Tiempo > 0) {
+                PreparedStatement PrSt;
+                String SQLQuery = "UPDATE Tiempo SET Tiempo =? WHERE ID_Tiempo =?";
+                PrSt = conexion.prepareStatement(SQLQuery);
+                PrSt.setInt(1, Tiempo);
+                PrSt.setInt(2, Integer.parseInt(Texto8.getText()));
 
-            int resultado = PrSt.executeUpdate();
-            if (resultado > 0) {
-                JOptionPane.showMessageDialog(null, "Informacion Modificada");
-                Texto1.setText(null);
-                Texto2.setText(null);
-                Texto3.setText(null);
-                Texto8.setText(null);
+                int resultado = PrSt.executeUpdate();
+                if (resultado > 0) {
+                    JOptionPane.showMessageDialog(null, "Informacion Modificada");
+                    Texto1.setText(null);
+                    Texto2.setText(null);
+                    Texto3.setText(null);
+                    Texto8.setText(null);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Fallo al modificar");
+                }
+                PrSt.close();
             } else {
-                JOptionPane.showMessageDialog(null, "Fallo al modificar");
+                JOptionPane.showMessageDialog(null, "El tiempo no puede superar los 30 dias ");
             }
-            PrSt.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonModificarActionPerformed
-
+    /**
+     * Elimina un tiempo entre las tiendas
+     * @param evt 
+     */
     private void BotonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarActionPerformed
 
         try {
@@ -446,10 +478,13 @@ public class Datos_Tiempo extends javax.swing.JFrame {
             }
             PrSt.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonEliminarActionPerformed
-
+    /**
+     * Agrega los datos de una fila seleccionada a los cuadros de texto de la base de datos
+     * @param evt 
+     */
     private void Tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla1MouseClicked
 
         try {
@@ -471,10 +506,12 @@ public class Datos_Tiempo extends javax.swing.JFrame {
             PrSt.close();
             resultado.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_Tabla1MouseClicked
-
+    /**
+     * Ejecuta la ventana
+     */
     public void Ejecutar() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

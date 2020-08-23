@@ -1,6 +1,5 @@
 package acciones;
 
-import informacion_empresa.*;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -8,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import principal.Conexion;
 
 public class Venta extends javax.swing.JFrame {
 
@@ -23,7 +21,13 @@ public class Venta extends javax.swing.JFrame {
     private double Paga;
     private double Credito;
     private double CreditoCliente;
-
+    
+    /**
+     * Inicia un objeto de tipo Venta
+     * Agrega todos los productos de la tienda a la tabla
+     * @param conexion La conexion con la base de datos
+     * @param Codigo_Tienda El codigo de la tienda donde estamos 
+     */
     public Venta(Connection conexion, String Codigo_Tienda) {
         initComponents();
         this.conexion = conexion;
@@ -66,7 +70,7 @@ public class Venta extends javax.swing.JFrame {
             PrSt.close();
             resultado.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }
 
@@ -382,7 +386,10 @@ public class Venta extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Lista todas las ventas que se han realizado en la empresa
+     * @param evt 
+     */
     private void BotonListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonListarActionPerformed
         try {
 
@@ -418,10 +425,13 @@ public class Venta extends javax.swing.JFrame {
             PrSt.close();
             resultado.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_BotonListarActionPerformed
-
+    /**
+     * Obtiene los datos de la fila seleccionada de la tabla y los guarda en las cajas de texto
+     * @param evt 
+     */
     private void Tabla1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla1MouseClicked
 
         try {
@@ -440,10 +450,13 @@ public class Venta extends javax.swing.JFrame {
             PrSt.close();
             resultado.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_Tabla1MouseClicked
-
+    /**
+     * Limpia todas las cajas de texto de la interfaz
+     * @param evt 
+     */
     private void BotonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonLimpiarActionPerformed
         Texto1.setText(null);
         Texto3.setText(null);
@@ -455,7 +468,10 @@ public class Venta extends javax.swing.JFrame {
         BotonCredito.setEnabled(false);
         BotonVenta.setEnabled(false);
     }//GEN-LAST:event_BotonLimpiarActionPerformed
-
+    /**
+     * Elimina una venta realizada 
+     * @param evt 
+     */
     private void BotonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEliminarActionPerformed
 
         try {
@@ -482,7 +498,10 @@ public class Venta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_BotonEliminarActionPerformed
-
+    /**
+     * Selecciona un producto de la tabla y lo guarda en la caja de texto para realizar una venta
+     * @param evt 
+     */
     private void Tabla2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tabla2MouseClicked
 
         try {
@@ -501,14 +520,22 @@ public class Venta extends javax.swing.JFrame {
             PrSt.close();
             resultado.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_Tabla2MouseClicked
-
+    /**
+     * Habilita el boton para comprobar
+     * @param evt 
+     */
     private void BotonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIngresarActionPerformed
         BotonComprobar.setEnabled(true);
     }//GEN-LAST:event_BotonIngresarActionPerformed
-
+    /**
+     * Comprueba que hayan datos introducidos para realizar una venta
+     * De ser asi obtiene el total que se debe pagar para la venta.
+     * Muestra la cantidad de Credito que tiene un cliente disponible.
+     * @param evt 
+     */
     private void BotonComprobarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonComprobarActionPerformed
         boolean comprobacion = false;
 
@@ -569,11 +596,14 @@ public class Venta extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, "Error: " + e);
         }
 
     }//GEN-LAST:event_BotonComprobarActionPerformed
-
+    /**
+     * Añade credito a la paga total que se debe realizar
+     * @param evt 
+     */
     private void BotonCreditoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCreditoActionPerformed
         try {
             double TotalCredito;
@@ -599,10 +629,14 @@ public class Venta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_BotonCreditoActionPerformed
-
+    /**
+     * Finaliza la venta y la agrega a la base de datos. 
+     * Resta el credito que el cliente uso.
+     * Resta los productos vendidos a las existencias totales
+     * @param evt 
+     */
     private void BotonVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonVentaActionPerformed
-        
-
+     
         try {
             PreparedStatement PrSt;
             String SQLQuery = "INSERT INTO Venta (Codigo_Producto, Codigo_Tienda, NIT_Cliente, Cantidad, Pago, Credito, Fecha) VALUES(?,?,?,?,?,?,?)";
@@ -687,7 +721,9 @@ public class Venta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_BotonVentaActionPerformed
-
+    /**
+     * Ejecuta la Ventana
+     */
     public void Ejecutar() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

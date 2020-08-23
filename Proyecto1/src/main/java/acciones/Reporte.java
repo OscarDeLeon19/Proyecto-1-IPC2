@@ -1,13 +1,10 @@
 package acciones;
 
-import informacion_empresa.*;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import principal.Exportar;
 
 public class Reporte extends javax.swing.JFrame {
@@ -17,7 +14,11 @@ public class Reporte extends javax.swing.JFrame {
     private Date FechaTemporal;
     private Date FechaIngresada;
     private Date FechaEntrada;
-
+    /**
+     * Inicia un objeto de tipo Reporte
+     * @param conexion La conexion con la base de datos
+     * @param TiendaActual La tienda donde estamos ubicados
+     */
     public Reporte(Connection conexion, String TiendaActual) {
         initComponents();
         this.conexion = conexion;
@@ -182,7 +183,10 @@ public class Reporte extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Lista todos los pedidos que llegaran a la tienda
+     * @param evt 
+     */
     private void Boton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton1ActionPerformed
         try {
             Area1.setText(null);
@@ -215,7 +219,11 @@ public class Reporte extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_Boton1ActionPerformed
-
+    /**
+     * Lista todos los pedidos que estan a tiempo de llegar a la tienda
+     * En base a la fecha muestra resultados
+     * @param evt 
+     */
     private void Boton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton2ActionPerformed
 
         try {
@@ -258,7 +266,10 @@ public class Reporte extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_Boton2ActionPerformed
-
+    /**
+     * Muestra todos los pedidos que han salido de la tienda en la que estamos ubicados
+     * @param evt 
+     */
     private void Boton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton4ActionPerformed
         try {
             Area1.setText(null);
@@ -291,7 +302,10 @@ public class Reporte extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_Boton4ActionPerformed
-
+    /**
+     * Muestra todos las compras que ha realizado un cliente en la empresa
+     * @param evt 
+     */
     private void Boton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton5ActionPerformed
         String Nit = JOptionPane.showInputDialog("Ingresa el NIT del cliente");
         try {
@@ -323,7 +337,10 @@ public class Reporte extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_Boton5ActionPerformed
-
+    /**
+     * Muestra todos los pedidos que ha realizado un cliente y no han llegado a la tienda
+     * @param evt 
+     */
     private void Boton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton6ActionPerformed
         String Nit = JOptionPane.showInputDialog("Ingresa el NIT del cliente");
         try {
@@ -357,7 +374,10 @@ public class Reporte extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_Boton6ActionPerformed
-
+    /**
+     * Muestra los diez productos mas vendidos. Puede agregar un limite de tiempo
+     * @param evt 
+     */
     private void Boton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton7ActionPerformed
 
         try {
@@ -393,7 +413,10 @@ public class Reporte extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_Boton7ActionPerformed
-
+    /**
+     * Lista los productos mas vendidos de una tienda. Puede ser por intervalo de tiempo
+     * @param evt 
+     */
     private void Boton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton8ActionPerformed
         try {
             Area1.setText(null);
@@ -428,7 +451,10 @@ public class Reporte extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_Boton8ActionPerformed
-
+    /**
+     * Muestra los productos que nunca se han vendido
+     * @param evt 
+     */
     private void Boton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton9ActionPerformed
         try {
             Area1.setText(null);
@@ -459,7 +485,10 @@ public class Reporte extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_Boton9ActionPerformed
-
+    /**
+     * Lista de los productos que llegaran con retraso en base a la fecha ingresada.
+     * @param evt 
+     */
     private void Boton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton3ActionPerformed
         try {
 
@@ -501,7 +530,11 @@ public class Reporte extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Error: " + e);
         }
     }//GEN-LAST:event_Boton3ActionPerformed
-
+    /**
+     * LLama al metodo para exportar el reporte.
+     * Obtiene el contenido del area de texto.
+     * @param evt 
+     */
     private void BotonExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonExportarActionPerformed
         String Texto = Area1.getText();
         if ("".equals(Texto)) {
@@ -511,7 +544,12 @@ public class Reporte extends javax.swing.JFrame {
             exportar.ExportarReporte();
         }
     }//GEN-LAST:event_BotonExportarActionPerformed
-
+    /**
+     * Obtiene el tiempo de llegada de un pedido entre dos tiendas
+     * @param TiendaO Tienda Origen 
+     * @param TiendaD Tienda destino del pedido
+     * @return La cantidad de tiempo
+     */
     public int ObtenerTiempo(String TiendaO, String TiendaD) {
         int Dias = 0;
         try {
@@ -544,7 +582,12 @@ public class Reporte extends javax.swing.JFrame {
         }
         return Dias;
     }
-
+    /**
+     * Suma los dias de el tiempo entre las tiendas a la fecha en que se realizo el pedido
+     * @param Fecha Fecha en que se realizo el pedido
+     * @param dias Los dias que se deben sumar
+     * @return Si el fecha es antes o despues de la fecha establecida de llegada.
+     */
     public boolean SumarDias(String Fecha, int dias) {
         boolean regreso = false;
         int Guion[] = new int[2];
@@ -580,7 +623,9 @@ public class Reporte extends javax.swing.JFrame {
 
         return regreso;
     }
-
+    /**
+     * Ejecuta la ventana
+     */
     public void Ejecutar() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

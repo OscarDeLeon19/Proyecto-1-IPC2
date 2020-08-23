@@ -10,8 +10,6 @@ import informacion_empresa.Datos_Producto;
 import informacion_empresa.Datos_Tiempo;
 import informacion_empresa.Datos_Tienda;
 import java.sql.Connection;
-import javax.swing.JOptionPane;
-import principal.Conexion;
 
 public class Tienda extends javax.swing.JFrame {
 
@@ -22,8 +20,18 @@ public class Tienda extends javax.swing.JFrame {
     private String Telefono_2;
     private String Correo;
     private String Horario;
-    Connection conexion;
-
+    private Connection conexion;
+    /**
+     * Constructor de una Tienda
+     * @param Nombre Nombre de la tienda
+     * @param Direccion Direccion de la tienda
+     * @param Codigo Codigo de la tienda
+     * @param Telefono_1 Telefono de la tienda
+     * @param Telefono_2 Segundo telefono de la tienda
+     * @param Correo Correo de la tienda
+     * @param Horario Horario de la tienda
+     * @param conexion Conexion con la base de datos
+     */
     public Tienda(String Nombre, String Direccion, String Codigo, String Telefono_1, String Telefono_2, String Correo, String Horario, Connection conexion) {
         initComponents();
         this.Nombre = Nombre;
@@ -213,53 +221,82 @@ public class Tienda extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Crea un objeto Datos_Tienda
+     * @param evt 
+     */
     private void BotonTiendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonTiendasActionPerformed
         Datos_Tienda tienda = new Datos_Tienda(conexion);
         tienda.Ejecutar();
     }//GEN-LAST:event_BotonTiendasActionPerformed
-
+    /**
+     * Crea un objeto Datos_Producto
+     * @param evt 
+     */
     private void BotonProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonProductosActionPerformed
         Datos_Producto producto = new Datos_Producto(conexion);
         producto.Ejecutar();
     }//GEN-LAST:event_BotonProductosActionPerformed
-
+    /**
+     * Crea un objeto Datos_Empleado
+     * @param evt 
+     */
     private void BotonEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEmpleadosActionPerformed
         Datos_Empleado empleado = new Datos_Empleado(conexion);
         empleado.Ejecutar();
     }//GEN-LAST:event_BotonEmpleadosActionPerformed
-
+    /**
+     * Crea un objeto Datos_Cliente
+     * @param evt 
+     */
     private void BotonClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonClientesActionPerformed
         Datos_Cliente cliente = new Datos_Cliente(conexion);
         cliente.Ejecutar();
     }//GEN-LAST:event_BotonClientesActionPerformed
-
+    /**
+     * Crea un objeto DatosTiempo
+     * @param evt 
+     */
     private void BotonTiempoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonTiempoActionPerformed
         Datos_Tiempo Tiempo = new Datos_Tiempo(conexion, Codigo);
         Tiempo.Ejecutar();
     }//GEN-LAST:event_BotonTiempoActionPerformed
-
+    /**
+     * Crea un objeto Venta
+     * @param evt 
+     */
     private void BotonVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonVentasActionPerformed
         Venta venta = new Venta(conexion, Codigo);
         venta.Ejecutar();
         
     }//GEN-LAST:event_BotonVentasActionPerformed
-
+    /**
+     * Crea un objeto de tipo Pedido
+     * @param evt 
+     */
     private void BotonPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonPedidosActionPerformed
         Pedido pedido = new Pedido(conexion, Codigo);
         pedido.Ejecutar();
     }//GEN-LAST:event_BotonPedidosActionPerformed
-
+    /**
+     * Crea un objeto de tipo Entrega
+     * @param evt 
+     */
     private void BotonEntregasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEntregasActionPerformed
         Entrega entrega = new Entrega(conexion,Codigo);
         entrega.Ejecutar();
     }//GEN-LAST:event_BotonEntregasActionPerformed
-
+    /**
+     * Crea un objeto de tipo Reporte
+     * @param evt 
+     */
     private void BotonReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonReportesActionPerformed
         Reporte reporte = new Reporte(conexion, Codigo);
         reporte.Ejecutar();
     }//GEN-LAST:event_BotonReportesActionPerformed
-
+    /**
+     * Ejecuta la ventana
+     */
     public void Ejecutar() {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

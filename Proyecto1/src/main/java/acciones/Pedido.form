@@ -373,9 +373,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="Texto10">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Texto10ActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="TextoCredito1">
       <Properties>
