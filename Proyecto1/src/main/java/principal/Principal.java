@@ -7,13 +7,14 @@ import ventanas.VentanaOpcion;
 public class Principal extends javax.swing.JFrame {
 
     public static String URL; // jdbc:mysql://localhost:3306/restaurant
-    public static String USERNAME; 
+    public static String USERNAME;
     public static String PASSWORD;
     private Connection conexion;
     private Conexion ClaseConexion;
+
     /**
      * Constructor de la clase Principal
-     * 
+     *
      */
     public Principal() {
         initComponents();
@@ -63,16 +64,23 @@ public class Principal extends javax.swing.JFrame {
 
         jTextField4.setText("URL");
 
-        Texto1.setText("jdbc:mysql://localhost:3306/Proyecto1");
+        Texto1.setText("jdbc:mysql://localhost:3306/Prueba");
+        Texto1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Texto1ActionPerformed(evt);
+            }
+        });
 
         jTextField6.setEditable(false);
         jTextField6.setText("Usuario");
 
-        Texto2.setText("root");
-
         jTextField8.setText("Contraseña");
 
-        Texto3.setText("mariobros99");
+        Texto3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Texto3ActionPerformed(evt);
+            }
+        });
 
         BotonCliente.setText("Version Cliente");
         BotonCliente.setEnabled(false);
@@ -91,9 +99,7 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(BotonTrabajador, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(BotonTrabajador, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField1)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -152,18 +158,21 @@ public class Principal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     /**
      * Evento del boton que inicia la aplicacion
-     * @param evt 
+     *
+     * @param evt
      */
     private void BotonTrabajadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonTrabajadorActionPerformed
         Trabajador trabajador = new Trabajador(conexion);
         trabajador.Ejecutar();
     }//GEN-LAST:event_BotonTrabajadorActionPerformed
     /**
-     * Obtiene los valores de la direccion, usuario y contraseña para poder conectar la base de datos
-     * @param evt 
+     * Obtiene los valores de la direccion, usuario y contraseña para poder
+     * conectar la base de datos
+     *
+     * @param evt
      */
     private void BotonConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonConectarActionPerformed
 
@@ -173,10 +182,13 @@ public class Principal extends javax.swing.JFrame {
 
         ClaseConexion = new Conexion(URL, USERNAME, PASSWORD);
         conexion = ClaseConexion.getConnection();
-        
-        if (ClaseConexion.isConexion_Exitosa() == true){
-            BotonCliente.setEnabled(true);
-            BotonTrabajador.setEnabled(true);
+
+        if (ClaseConexion.isConexion_Exitosa() == true) {
+            if ("Trabajador".equals(USERNAME)) {
+                BotonTrabajador.setEnabled(true);
+            } else if ("Cliente".equals(USERNAME)) {
+                BotonCliente.setEnabled(true);
+            }
         } else {
             BotonCliente.setEnabled(false);
             BotonTrabajador.setEnabled(false);
@@ -188,8 +200,15 @@ public class Principal extends javax.swing.JFrame {
         VentanaOpcion opcion = new VentanaOpcion(conexion);
         opcion.Ejecutar();
     }//GEN-LAST:event_BotonClienteActionPerformed
-    
-    
+
+    private void Texto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Texto1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Texto1ActionPerformed
+
+    private void Texto3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Texto3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Texto3ActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

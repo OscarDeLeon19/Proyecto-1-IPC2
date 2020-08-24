@@ -721,7 +721,7 @@ public class Pedido extends javax.swing.JFrame {
                         Tabla2.setModel(modelo);
                         PreparedStatement parametro;
                         ResultSet resultado2 = null;
-                        String ComandoSQL = "SELECT * FROM Producto WHERE Codigo_Tienda != ?";
+                        String ComandoSQL = "SELECT * FROM Producto WHERE Codigo_Tienda != ? and Codigo NOT IN (select Codigo from Producto where Codigo_Tienda = ?)";
 
                         parametro = conexion.prepareStatement(ComandoSQL);
                         parametro.setString(1, Codigo_Tienda);
