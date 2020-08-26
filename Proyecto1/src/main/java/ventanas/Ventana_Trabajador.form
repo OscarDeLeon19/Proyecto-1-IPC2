@@ -61,7 +61,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="BotonComprobar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Comprobar Base de datos"/>
+        <Property name="text" type="java.lang.String" value="Comprobar datos"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BotonComprobarActionPerformed"/>

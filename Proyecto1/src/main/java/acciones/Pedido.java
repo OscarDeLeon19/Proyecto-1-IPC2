@@ -724,6 +724,7 @@ public class Pedido extends javax.swing.JFrame {
 
                         parametro = conexion.prepareStatement(ComandoSQL);
                         parametro.setString(1, Codigo_Tienda);
+                        parametro.setString(2, Codigo_Tienda);
                         resultado2 = parametro.executeQuery();
 
                         ResultSetMetaData result = resultado2.getMetaData();

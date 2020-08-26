@@ -44,7 +44,7 @@ public class Ventana_Trabajador extends javax.swing.JFrame {
             }
         });
 
-        BotonComprobar.setText("Comprobar Base de datos");
+        BotonComprobar.setText("Comprobar datos");
         BotonComprobar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotonComprobarActionPerformed(evt);
