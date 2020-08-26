@@ -611,19 +611,9 @@ public class Datos_Producto extends javax.swing.JFrame {
         }
 
         try {
-            PreparedStatement PrSt1;
             PreparedStatement PrSt2;
-            ResultSet rs = null;
-            String ComprobarQuery = "SELECT * FROM Producto WHERE Codigo = ? AND Codigo_Tienda = ?";
-            PrSt1 = conexion.prepareCall(ComprobarQuery);
-            PrSt1.setString(1, Codigo);
-            PrSt1.setString(2, CodigoTienda);
-            rs = PrSt1.executeQuery();
-
-            if (rs.next()) {
-                ProductoComprobado = true;
-            }
-            if (ProductoComprobado == false) {
+            
+            
                 String SQLQuery = "UPDATE Producto SET Nombre =?, Fabricante =?, Codigo =?, Cantidad =?, Precio =?, Codigo_Tienda =?, Descripcion =?, Garantia = ? WHERE ID =?";
                 PrSt2 = conexion.prepareStatement(SQLQuery);
                 PrSt2.setString(1, Nombre);
@@ -644,11 +634,7 @@ public class Datos_Producto extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Fallo al modificar");
                 }
                 PrSt2.close();
-            } else {
-                JOptionPane.showMessageDialog(null, "No se puede modificar porque el producto ya existe");
-            }
-            PrSt1.close();
-            rs.close();
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: " + e);
         }

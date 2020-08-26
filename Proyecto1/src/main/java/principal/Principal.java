@@ -61,8 +61,6 @@ public class Principal extends javax.swing.JFrame {
 
         jTextField4.setText("URL");
 
-        Texto1.setText("jdbc:mysql://localhost:3306/Proyecto1");
-
         jTextField6.setEditable(false);
         jTextField6.setText("Usuario");
 
@@ -161,7 +159,7 @@ public class Principal extends javax.swing.JFrame {
      * @param evt
      */
     private void BotonConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonConectarActionPerformed
-        String URL; // jdbc:mysql://localhost:3306/restaurant
+        String URL; // jdbc:mysql://localhost:3306/Proyecto1
         String USERNAME;
         String PASSWORD;
         URL = Texto1.getText();
