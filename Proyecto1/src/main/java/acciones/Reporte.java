@@ -304,7 +304,7 @@ public class Reporte extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_Boton4ActionPerformed
     /**
-     * Muestra todos las compras que ha realizado un cliente en la empresa
+     * Muestra todos las compras que ha realizado un cliente en la empresa. 
      * @param evt 
      */
     private void Boton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton5ActionPerformed
