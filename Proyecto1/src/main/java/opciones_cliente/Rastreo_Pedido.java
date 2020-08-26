@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
-public class Rastreo_Producto extends javax.swing.JFrame {
+public class Rastreo_Pedido extends javax.swing.JFrame {
 
     private int ID_Pedido;
     private Connection conexion;
@@ -16,7 +16,7 @@ public class Rastreo_Producto extends javax.swing.JFrame {
      * Inicializa un objeto de tipo RastreoProducto
      * @param conexion La conexion con la base de datos
      */
-    public Rastreo_Producto(Connection conexion) {
+    public Rastreo_Pedido(Connection conexion) {
         initComponents();
         this.conexion = conexion;
         this.setLocationRelativeTo(null);
@@ -235,6 +235,8 @@ public class Rastreo_Producto extends javax.swing.JFrame {
                     } else {
                         System.out.println("Fallo");
                     }
+                } else{
+                    JOptionPane.showMessageDialog(null, "No existe el pedido");
                 }
                 PrSt.close();
                 resultado.close();
@@ -451,21 +453,23 @@ public class Rastreo_Producto extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Rastreo_Producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Rastreo_Pedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Rastreo_Producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Rastreo_Pedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Rastreo_Producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Rastreo_Pedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Rastreo_Producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Rastreo_Pedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Rastreo_Producto(conexion).setVisible(true);
+                new Rastreo_Pedido(conexion).setVisible(true);
             }
         });
     }

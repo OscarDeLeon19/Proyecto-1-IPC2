@@ -3,7 +3,7 @@ package ventanas;
 
 import java.sql.Connection;
 import opciones_cliente.Catalogo_Producto;
-import opciones_cliente.Rastreo_Producto;
+import opciones_cliente.Rastreo_Pedido;
 
 
 public class VentanaOpcion extends javax.swing.JFrame {
@@ -78,11 +78,11 @@ public class VentanaOpcion extends javax.swing.JFrame {
        
     }//GEN-LAST:event_BotonCatalogoActionPerformed
     /**
-     * Crea un objeto de tipo Rastreo_Producto y lo ejecuta
+     * Crea un objeto de tipo Rastreo_Pedido y lo ejecuta
      * @param evt 
      */
     private void BotonRastreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonRastreoActionPerformed
-        Rastreo_Producto pro = new Rastreo_Producto(conexion);
+        Rastreo_Pedido pro = new Rastreo_Pedido(conexion);
         pro.Ejecutar();
         dispose();
     }//GEN-LAST:event_BotonRastreoActionPerformed
