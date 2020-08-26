@@ -7,11 +7,9 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import principal.Conexion;
 
 public class Datos_Cliente extends javax.swing.JFrame {
 
-    private Conexion ClaseConexion;
     private Connection conexion;
     /**
      * Inicia un objeto de tipo Datos_Cliente

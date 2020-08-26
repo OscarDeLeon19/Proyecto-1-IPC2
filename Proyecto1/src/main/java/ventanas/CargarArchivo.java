@@ -8,15 +8,12 @@ import java.io.FileReader;
 import java.sql.Date;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import principal.Conexion;
 
 public class CargarArchivo extends javax.swing.JFrame {
 
     private File fichero;
     private String Fallo[] = new String[100];
     private int fallos;
-
-    private Conexion ClaseConexion;
     private Connection conexion;
 
     /**
@@ -174,6 +171,8 @@ public class CargarArchivo extends javax.swing.JFrame {
                 Area1.append(Fallo[i]);
                 Area1.append("\n");
             }
+            BotonCargar.setEnabled(false);
+            BotonAbrir.setEnabled(false);
         } catch (Exception e) {
             Area1.setText("No se encontro el archivo");
         }

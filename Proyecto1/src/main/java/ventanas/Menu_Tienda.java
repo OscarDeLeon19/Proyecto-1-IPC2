@@ -10,18 +10,18 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import registros.Tienda;
 
-public class ElegirTienda extends javax.swing.JFrame {
+public class Menu_Tienda extends javax.swing.JFrame {
 
     private Connection conexion;
 
     /**
-     * Constructor de la clase ElejirTienda. Esta clase elije en que tienda se
+     * Constructor de la clase Menu_Tienda. Esta clase elije en que tienda se
      * va a trabajar el empleado Carga el nombre y codigo de las tiendas
      * disponibles
      *
      * @param conexion Conexion de la base de datos
      */
-    public ElegirTienda(Connection conexion) {
+    public Menu_Tienda(Connection conexion) {
         initComponents();
         this.conexion = conexion;
         this.setLocationRelativeTo(null);
@@ -71,6 +71,7 @@ public class ElegirTienda extends javax.swing.JFrame {
         BotonIngresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Menu");
 
         Tabla1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -209,21 +210,22 @@ public class ElegirTienda extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ElegirTienda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu_Tienda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ElegirTienda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu_Tienda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ElegirTienda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu_Tienda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ElegirTienda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Menu_Tienda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new ElegirTienda(conexion).setVisible(true);
+                new Menu_Tienda(conexion).setVisible(true);
             }
         });
     }

@@ -17,7 +17,7 @@ public class Venta extends javax.swing.JFrame {
     private int Cantidad;
     private String Fecha;
     private int Existencias;
-    private Double PrecioExistencias;
+    private double PrecioExistencias;
     private double Paga;
     private double Credito;
     private double CreditoCliente;

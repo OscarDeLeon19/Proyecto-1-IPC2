@@ -28,6 +28,7 @@ public class VentanaOpcion extends javax.swing.JFrame {
         BotonRastreo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Opciones");
 
         BotonCatalogo.setText("Catalogo de Productos");
         BotonCatalogo.addActionListener(new java.awt.event.ActionListener() {

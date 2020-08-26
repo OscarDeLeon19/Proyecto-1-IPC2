@@ -10,7 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
-public class Trabajador extends javax.swing.JFrame {
+public class Ventana_Trabajador extends javax.swing.JFrame {
 
     Connection conexion;
 
@@ -19,7 +19,7 @@ public class Trabajador extends javax.swing.JFrame {
      *
      * @param conexion Conexion con la base de datos
      */
-    public Trabajador(Connection conexion) {
+    public Ventana_Trabajador(Connection conexion) {
         initComponents();
         this.conexion = conexion;
         this.setLocationRelativeTo(null);
@@ -129,7 +129,7 @@ public class Trabajador extends javax.swing.JFrame {
      * @param evt
      */
     private void BotonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonIniciarActionPerformed
-        ElegirTienda Elegir = new ElegirTienda(conexion);
+        Menu_Tienda Elegir = new Menu_Tienda(conexion);
         Elegir.Ejecutar();
         dispose();
     }//GEN-LAST:event_BotonIniciarActionPerformed
@@ -141,7 +141,7 @@ public class Trabajador extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Trabajador(conexion).setVisible(true);
+                new Ventana_Trabajador(conexion).setVisible(true);
 
             }
         });

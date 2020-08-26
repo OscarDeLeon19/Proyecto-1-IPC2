@@ -1,14 +1,11 @@
 package principal;
 
-import ventanas.Trabajador;
+import ventanas.Ventana_Trabajador;
 import java.sql.Connection;
 import ventanas.VentanaOpcion;
 
 public class Principal extends javax.swing.JFrame {
 
-    public static String URL; // jdbc:mysql://localhost:3306/restaurant
-    public static String USERNAME;
-    public static String PASSWORD;
     private Connection conexion;
     private Conexion ClaseConexion;
 
@@ -64,23 +61,12 @@ public class Principal extends javax.swing.JFrame {
 
         jTextField4.setText("URL");
 
-        Texto1.setText("jdbc:mysql://localhost:3306/Prueba");
-        Texto1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Texto1ActionPerformed(evt);
-            }
-        });
+        Texto1.setText("jdbc:mysql://localhost:3306/Proyecto1");
 
         jTextField6.setEditable(false);
         jTextField6.setText("Usuario");
 
         jTextField8.setText("Contraseña");
-
-        Texto3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Texto3ActionPerformed(evt);
-            }
-        });
 
         BotonCliente.setText("Version Cliente");
         BotonCliente.setEnabled(false);
@@ -165,7 +151,7 @@ public class Principal extends javax.swing.JFrame {
      * @param evt
      */
     private void BotonTrabajadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonTrabajadorActionPerformed
-        Trabajador trabajador = new Trabajador(conexion);
+        Ventana_Trabajador trabajador = new Ventana_Trabajador(conexion);
         trabajador.Ejecutar();
     }//GEN-LAST:event_BotonTrabajadorActionPerformed
     /**
@@ -175,7 +161,9 @@ public class Principal extends javax.swing.JFrame {
      * @param evt
      */
     private void BotonConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonConectarActionPerformed
-
+        String URL; // jdbc:mysql://localhost:3306/restaurant
+        String USERNAME;
+        String PASSWORD;
         URL = Texto1.getText();
         USERNAME = Texto2.getText();
         PASSWORD = Texto3.getText();
@@ -186,8 +174,10 @@ public class Principal extends javax.swing.JFrame {
         if (ClaseConexion.isConexion_Exitosa() == true) {
             if ("Trabajador".equals(USERNAME)) {
                 BotonTrabajador.setEnabled(true);
+                BotonCliente.setEnabled(false);
             } else if ("Cliente".equals(USERNAME)) {
                 BotonCliente.setEnabled(true);
+                BotonTrabajador.setEnabled(false);
             }
         } else {
             BotonCliente.setEnabled(false);
@@ -200,14 +190,6 @@ public class Principal extends javax.swing.JFrame {
         VentanaOpcion opcion = new VentanaOpcion(conexion);
         opcion.Ejecutar();
     }//GEN-LAST:event_BotonClienteActionPerformed
-
-    private void Texto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Texto1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Texto1ActionPerformed
-
-    private void Texto3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Texto3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Texto3ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-import principal.Exportar;
+import principal.Exportacion;
 
 public class Reporte extends javax.swing.JFrame {
 
@@ -541,7 +541,7 @@ public class Reporte extends javax.swing.JFrame {
         if ("".equals(Texto)) {
              JOptionPane.showMessageDialog(null, "No hay reporte para exportar");
         } else {
-            Exportar exportar = new Exportar(Texto);
+            Exportacion exportar = new Exportacion(Texto);
             exportar.ExportarReporte();
         }
     }//GEN-LAST:event_BotonExportarActionPerformed
@@ -551,7 +551,7 @@ public class Reporte extends javax.swing.JFrame {
      * @param TiendaD Tienda destino del pedido
      * @return La cantidad de tiempo
      */
-    public int ObtenerTiempo(String TiendaO, String TiendaD) {
+    private int ObtenerTiempo(String TiendaO, String TiendaD) {
         int Dias = 0;
         try {
             PreparedStatement PrSt;
@@ -589,7 +589,7 @@ public class Reporte extends javax.swing.JFrame {
      * @param dias Los dias que se deben sumar
      * @return Si el fecha es antes o despues de la fecha establecida de llegada.
      */
-    public boolean SumarDias(String Fecha, int dias) {
+    private boolean SumarDias(String Fecha, int dias) {
         boolean regreso = false;
         int Guion[] = new int[2];
         int x = 0;

@@ -8,14 +8,14 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 
-public class Exportar {
+public class Exportacion {
     
     private String TextoExportar;
     /**
-     * Constructor de la clase Exportar
+     * Constructor de la clase Exportacion
      * @param TextoExportar El texto que se va a exportar al archivo HTML
      */
-    public Exportar(String TextoExportar) {
+    public Exportacion(String TextoExportar) {
         this.TextoExportar = TextoExportar;
     }
     /**

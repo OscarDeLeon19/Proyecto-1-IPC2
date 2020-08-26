@@ -21,7 +21,6 @@ public class Pedido extends javax.swing.JFrame {
     private double Total;
     private double Anticipo;
     private double Credito;
-
     private double CreditoCliente;
     private int Existencias;
     private double PrecioExistencias;

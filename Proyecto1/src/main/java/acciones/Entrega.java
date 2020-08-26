@@ -24,12 +24,10 @@ public class Entrega extends javax.swing.JFrame {
     private String IDPedido;
     private String EstadoPedido;
     private String FechaIngresoDePedido;
-
     private String FechaDeLlegada;
-
-    java.sql.Date FechaPrevista;
-    java.sql.Date FechaIngresada;
-    java.sql.Date FechaEntrada;
+    private java.sql.Date FechaPrevista;
+    private java.sql.Date FechaIngresada;
+    private java.sql.Date FechaEntrada;
 
     /**
      * Inicializa un Objeto de tipo entrega
